@@ -15,8 +15,7 @@ public class Funtion_T_Dtos implements Serializable{
 	private String f_unum;
 	private String f_comnum;
 	private int a_seq;
-	
-	
+		
 	
 	
 	public Funtion_T_Dtos() {
