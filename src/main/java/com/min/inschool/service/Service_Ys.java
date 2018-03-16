@@ -57,8 +57,8 @@ public class Service_Ys implements IService_Ys {
 	}
 
 	@Override
-	public Answer_T_Dtos getBarod(int seq) {
-		return YSDao.getBarod(seq);
+	public Answer_T_Dtos getBoard(int seq) {
+		return YSDao.getBoard(seq);
 	}
 
 	@Override

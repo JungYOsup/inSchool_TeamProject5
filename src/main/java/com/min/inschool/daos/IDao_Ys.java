@@ -33,7 +33,7 @@ public interface IDao_Ys {
 	public boolean deleteBoard(int seq);
 	
 	//9. 글 상세보는 메서드 (SELECT)
-	public Answer_T_Dtos getBarod(int seq);
+	public Answer_T_Dtos getBoard(int seq);
 	
 	//10. 댓글의 수를 조회하는 메서드(SELECT)
 	public boolean commentreadCount(int seq);

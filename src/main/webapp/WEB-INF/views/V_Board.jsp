@@ -12,13 +12,10 @@
 
 	function insertForm() {
 		
-		location.href="insertform.do";
+		location.href="daum.do";
 		
 	}
 	
-
-
-
 
 </script>
 
@@ -61,7 +58,7 @@
 		
 			<tr>
 				<td>${dto.a_seq}</td>
-				<td>${dto.a_title}</td>
+				<td><a href="detailboard.do?seq=${dto.a_seq}">${dto.a_title}</a></td>
 				<td>${dto.a_name}</td>
 				<td>${dto.a_regdate}</td>
 				<td>${dto.a_ansnum}</td><!--조회는 쿼리문을 추가해야함-->

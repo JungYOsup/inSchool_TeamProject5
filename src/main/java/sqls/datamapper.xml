@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hk.ansboard">
-	
+
 	<!-- **resultMap 을 쓰므로서 훨씬 쉽게 할수 있음을 배웠다 -->
 	<resultMap type="com.min.inschool.dtos.Answer_T_Dtos" id="Answer_T_DtosMap">
-		
+
 		<result property="a_seq" column="A_SEQ"></result>
 		<result property="a_title" column="A_TITLE"></result>
 		<result property="a_content1" column="A_CONTENT1"></result>
@@ -26,51 +26,58 @@
 		<result property="img_name" column="IMG_NAME"></result>
 		<result property="img_size" column="IMG_SIZE"></result>
 		<result property="v_img_regdate" column="V_IMG_REGDATE"></result>
-		<collection property="funtion_T_Dtos" resultMap="Funtion_T_DtosMap"></collection> <!--resultMap : id 
-																								밑에 resultMap의 id 를 받으면서 Funtion_T_Dtos의 칼럼을 모두 가질수 있다. -->
-				
-	
+		<collection property="funtion_T_Dtos" resultMap="Funtion_T_DtosMap"></collection> <!--resultMap : id 밑에 resultMap의 id 를 받으면서 Funtion_T_Dtos의 칼럼을 모두 가질수 있다. -->
+
+
 	</resultMap>
-	
+
 	<resultMap type="com.min.inschool.dtos.Funtion_T_Dtos" id="Funtion_T_DtosMap">
-		
+
 		<result property="f_like" column="F_LIKE"></result>
 		<result property="f_save" column="F_SAVE"></result>
 		<result property="f_unum" column="f_unum"></result>
 		<result property="f_comnum" column="F_COMNUM"></result>
 		<result property="a_seq" column="A_SEQ"></result>
-				
-	
+
+
 	</resultMap>
-		
-	
 
-<!--1. 모든 데이터를 가져온다. + 좋아요 -->
-	<select id="baordlist" resultMap="Answer_T_DtosMap">
-	
-	SELECT A.A_SEQ, A.A_TITLE, A.A_CONTENT1, A.A_CONTENT2, A.A_CONTENT3, A.A_NAME, A.A_REGDATE, A.A_RECOUNT,
-	A.A_UNUM, A.A_COMNUM, A.A_BOARDNAME, A.A_ANSNUM, A.A_REF, A.A_STEP, A.A_DEPTH, A.V_ORINAME, A.V_TYPE, A.V_FILESIZE, A.IMG_NAME, A.IMG_SIZE, A.V_IMG_REGDATE,
-	F_LIKE FROM ANSWER_T A, FUNCTION_T F WHERE A.A_SEQ=F.A_SEQ ORDER BY A_REGDATE DESC
-	
+
+
+	<!--1. 모든 데이터를 가져온다. + 좋아요 -->
+	<select id="baordlist" resultMap="Answer_T_DtosMap" >
+
+		SELECT A.A_SEQ, A.A_TITLE, A.A_CONTENT1, A.A_CONTENT2, A.A_CONTENT3, A.A_NAME, A.A_REGDATE, A.A_RECOUNT,
+		A.A_UNUM, A.A_COMNUM, A.A_BOARDNAME, A.A_ANSNUM, A.A_REF, A.A_STEP, A.A_DEPTH, A.V_ORINAME, A.V_TYPE, A.V_FILESIZE, A.IMG_NAME, A.IMG_SIZE, A.V_IMG_REGDATE,
+		NVL(F_LIKE,0) F_LIKE FROM ANSWER_T A LEFT OUTER JOIN FUNCTION_T F ON A.A_SEQ=F.A_SEQ ORDER BY A_REGDATE DESC
+
 	</select>
- 
-<!--2.게시판에 글쓰는 쿼리  --> 
 
+
+
+
+	<!--2.게시판에 글쓰는 쿼리 -->
 	<insert id="insertboard" parameterType="Answer_T_Dtos">
-	
+
 	INSERT INTO TEAMWORK.ANSWER_T
-	(A_SEQ, A_TITLE, A_CONTENT1,A_CONTENT2,A_CONTENT3 A_NAME, A_REGDATE, A_RECOUNT, A_UNUM , A_BOARDNAME, A_ANSNUM, A_REF, A_STEP, A_DEPTH, V_ORINAME, V_TYPE, V_FILESIZE, IMG_NAME, IMG_SIZE, V_IMG_REGDATE)
-	VALUES(ANSWER_T_SEQ.NEXTVAL,#{a_title},#{a_content1},#{a_content2},#{a_content3},#{a_name}, SYSDATE, 0, #{a_unum},'UV',0, 
-	(SELECT NVL(MAX(A_REF)+1,0) FROM ANSWER_T), 0, 0,#{v_oriname},#{v_type},#{v_filesize},#{img_name},#{img_size},SYSDATE)
-	
-	
+	(A_SEQ, A_TITLE, A_CONTENT1,A_CONTENT2,A_CONTENT3, A_NAME, A_REGDATE, A_RECOUNT, A_UNUM,A_COMNUM , A_BOARDNAME, A_ANSNUM, A_REF, A_STEP, A_DEPTH, V_ORINAME, V_TYPE, V_FILESIZE, IMG_NAME, IMG_SIZE, V_IMG_REGDATE)
+	VALUES(ANSWER_T_SEQ.NEXTVAL, #{a_title},#{a_content1},'2','안녕하세요 하하입니다', 'USER', SYSDATE, 0, 'U30','C30','UV',0, (SELECT NVL(MAX(A_REF)+1,0) A_REF FROM ANSWER_T), 0, 0,#{v_oriname},#{v_type},#{v_filesize},#{img_name},#{img_size},SYSDATE)
+
+
 	</insert>
 	
-
-
-
+	<!--3.게시판 상세보는 쿼리  -->
 	
-  
-  
-  
+	<select id="detailboard" parameterType="int" resultType="Answer_T_Dtos">
+	
+		SELECT A_SEQ, A_TITLE, A_CONTENT1,A_CONTENT2,A_CONTENT3, A_NAME, A_REGDATE, A_RECOUNT, A_UNUM,A_COMNUM , A_BOARDNAME, A_ANSNUM, A_REF, A_STEP, A_DEPTH, V_ORINAME, V_TYPE, V_FILESIZE, IMG_NAME, IMG_SIZE, V_IMG_REGDATE FROM ANSWER_T WHERE A_SEQ = #{a_seq}
+			
+	</select>
+
+
+
+
+
+
+
 </mapper>
