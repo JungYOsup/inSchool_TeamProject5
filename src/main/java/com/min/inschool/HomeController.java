@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.min.inschool.dtos.Answer_T_Dtos;
+import com.min.inschool.dtos.REPLY_T_Dtos;
 import com.min.inschool.service.IService_Ys;
 
 /**
@@ -96,26 +98,99 @@ public class HomeController {
 	
 
 	}
-	//4.상세보기 메서드
+	//4.상세보기 메서드 , 조회하는 메서드
 	
 	@RequestMapping(value ="/detailboard.do")
-	public String detailboard(Locale locale, Model model, int seq) {
+	public String detailboard(Locale locale, Model model, Answer_T_Dtos dto,REPLY_T_Dtos dto2) {
 		
 		logger.info("상세보기를 합니다");
-		System.out.println(seq);
-		
-		
-		Answer_T_Dtos dto =service_ys.getBoard(seq);
-		
 		System.out.println(dto);
+		
+		
+		service_ys.readCount(dto.getA_seq());
+		
+		Answer_T_Dtos dtos =service_ys.getBoard(dto);
+		
+		List<REPLY_T_Dtos> lists = service_ys.selectAllcomment(dto2);
 				
-		model.addAttribute("dto", dto);
+		System.out.println(dtos);
+		
+		model.addAttribute("dto", dtos);
+		model.addAttribute("lists",lists);
 		
 		return "V_detailboard";
 		
 	
 		
 	}
+	//5.좋아요 메서드(나중에 ajax로 처리하자)
+	@RequestMapping(value ="/likeboard.do")
+	public String insertlike(Locale locale, Model model, Answer_T_Dtos dto) {
+		
+		logger.info("좋아요를 누릅니다");
+		System.out.println("좋아요 누를때 dto는"+dto);
+		
+		boolean isS = service_ys.insertlike(dto);
+		
+		if(isS) {
+			System.out.println("좋아요를 누르셨습니다");
+			
+		}else {
+			System.out.println("좋아요 누르기 실패하셨습니다");
+			
+		}
+		
+		//Model을 통해서 Controll로 이동해서 값을 전달하면 값을 못받더라..
+		
+		return "redirect:detailboard.do?a_seq="+dto.getA_seq();
+		
+	
+		
+	}
+	
+	//6.좋아요 취소하는 메서드(좋아요를 한번더 누를시 데이터에 자기자신이 누른 좋아요가 있을경우 삭제시키는 방법으로 삭제한다)
+	
+	
+	//7.댓글을 작성하는 메소드
+	
+	@ResponseBody
+	@RequestMapping(value ="/CommentAjax.do")
+	public Map<String, List<REPLY_T_Dtos>> ReplyAjax(Locale locale,REPLY_T_Dtos dto) {
+		
+		logger.info("답글 추가");
+		
+		System.out.println(dto);
+		
+		boolean isS = service_ys.commentBoardInsert(dto);
+		
+		System.out.println(isS);
+		
+		if(isS) {
+			
+			Map<String, List<REPLY_T_Dtos>> map = new HashMap<String, List<REPLY_T_Dtos>>();
+			
+			List<REPLY_T_Dtos> lists = service_ys.selectAllcomment(dto);
+			
+			map.put("lists", lists);
+			
+			return map;
+			
+		}
+		
+		return null;
+			
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

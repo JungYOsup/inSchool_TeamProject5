@@ -3,6 +3,7 @@ package com.min.inschool.daos;
 import java.util.List;
 
 import com.min.inschool.dtos.Answer_T_Dtos;
+import com.min.inschool.dtos.REPLY_T_Dtos;
 
 public interface IDao_Ys {
 	
@@ -22,9 +23,12 @@ public interface IDao_Ys {
 	public int replyBaordInsert(Answer_T_Dtos dto);
 		
 	//5. 댓글다는 메서드(상세보기) (INSERT)
-	public int commentBoardInsert(Answer_T_Dtos dto);
+	public boolean commentBoardInsert(REPLY_T_Dtos dto);
 	
-	//6. 댓글에 댓글달기 (INSERT)
+	//6. 댓글을 가져오는 메서드 (SELECT)
+	public List<REPLY_T_Dtos> selectAllcomment(REPLY_T_Dtos dto);
+		
+	//7. 댓글에 댓글달기 (INSERT)
 	public int DoublecommentBoardInsert(Answer_T_Dtos dto); 
 	
 	//7. 게시판을 수정하는 메서드(상세보기, 내것을 클릭했을때) (UPDATE)
@@ -33,13 +37,16 @@ public interface IDao_Ys {
 	public boolean deleteBoard(int seq);
 	
 	//9. 글 상세보는 메서드 (SELECT)
-	public Answer_T_Dtos getBoard(int seq);
+	public Answer_T_Dtos getBoard(Answer_T_Dtos dto);
 	
 	//10. 댓글의 수를 조회하는 메서드(SELECT)
 	public boolean commentreadCount(int seq);
 	
 	//11. ajax처리 
 	public Answer_T_Dtos getBoardAjax(int seq);
+	
+	//12. 좋아요를 누르는 메서드(UPDATE)
+	public boolean insertlike(Answer_T_Dtos dto);
 	
 	
 

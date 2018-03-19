@@ -45,18 +45,19 @@
 
 
 	<!--1. 모든 데이터를 가져온다. + 좋아요 -->
-	<select id="baordlist" resultMap="Answer_T_DtosMap" >
+	<select id="boardlist" resultMap="Answer_T_DtosMap" >
 
 		SELECT A.A_SEQ, A.A_TITLE, A.A_CONTENT1, A.A_CONTENT2, A.A_CONTENT3, A.A_NAME, A.A_REGDATE, A.A_RECOUNT,
 		A.A_UNUM, A.A_COMNUM, A.A_BOARDNAME, A.A_ANSNUM, A.A_REF, A.A_STEP, A.A_DEPTH, A.V_ORINAME, A.V_TYPE, A.V_FILESIZE, A.IMG_NAME, A.IMG_SIZE, A.V_IMG_REGDATE,
-		NVL(F_LIKE,0) F_LIKE FROM ANSWER_T A LEFT OUTER JOIN FUNCTION_T F ON A.A_SEQ=F.A_SEQ ORDER BY A_REGDATE DESC
+		NVL(F.F_LIKE,0) F_LIKE FROM ANSWER_T A LEFT OUTER JOIN (SELECT A_SEQ, MAX(F_LIKE) F_LIKE FROM FUNCTION_T GROUP BY A_SEQ) F ON A.A_SEQ=F.A_SEQ
+		
 
 	</select>
 
 
 
 
-	<!--2.게시판에 글쓰는 쿼리 -->
+	<!--2.게시판에 글쓰는 쿼리 + 글을쓸경우 자동으로 기능쿼리도 A_SEQ에 맞춰서 추가되어야한다? -->
 	<insert id="insertboard" parameterType="Answer_T_Dtos">
 
 	INSERT INTO TEAMWORK.ANSWER_T
@@ -67,17 +68,49 @@
 	</insert>
 	
 	<!--3.게시판 상세보는 쿼리  -->
+	<select id="detailboard" parameterType="Answer_T_Dtos" resultMap="Answer_T_DtosMap">
 	
-	<select id="detailboard" parameterType="int" resultType="Answer_T_Dtos">
-	
-		SELECT A_SEQ, A_TITLE, A_CONTENT1,A_CONTENT2,A_CONTENT3, A_NAME, A_REGDATE, A_RECOUNT, A_UNUM,A_COMNUM , A_BOARDNAME, A_ANSNUM, A_REF, A_STEP, A_DEPTH, V_ORINAME, V_TYPE, V_FILESIZE, IMG_NAME, IMG_SIZE, V_IMG_REGDATE FROM ANSWER_T WHERE A_SEQ = #{a_seq}
+		SELECT A.A_SEQ, A.A_TITLE, A.A_CONTENT1, A.A_CONTENT2, A.A_CONTENT3, A.A_NAME, A.A_REGDATE, A.A_RECOUNT,
+		A.A_UNUM, A.A_COMNUM, A.A_BOARDNAME, A.A_ANSNUM, A.A_REF, A.A_STEP, A.A_DEPTH, A.V_ORINAME, A.V_TYPE, A.V_FILESIZE, A.IMG_NAME, A.IMG_SIZE, A.V_IMG_REGDATE,
+		NVL(F.F_LIKE,0) F_LIKE FROM ANSWER_T A LEFT OUTER JOIN (SELECT A_SEQ, MAX(F_LIKE) F_LIKE FROM FUNCTION_T GROUP BY A_SEQ) F ON A.A_SEQ=F.A_SEQ WHERE A.A_SEQ=#{a_seq}
 			
 	</select>
+	
+	<!-- 4.좋아요를 증가시키는 쿼리  -->
+	<insert id="insertlike" parameterType="Answer_T_Dtos">
+	
+	INSERT INTO FUNCTION_T (F_LIKE,F_SAVEORLIKE,F_UNUM,F_COMNUM,A_SEQ) VALUES((SELECT NVL(MAX(F_LIKE)+1,1) FROM FUNCTION_T WHERE A_SEQ=#{a_seq}),'L','U20','C14',#{a_seq})
 
 
+	</insert>
 
-
-
+	<!-- 5.조회수를 증가시키는 쿼리  -->
+	<update id="updatecount" parameterType="int">
+	
+		UPDATE ANSWER_T SET A_RECOUNT=A_RECOUNT+1 WHERE a_seq = #{seq}
+		
+	</update>
+	
+	<!-- 6.댓글다는 쿼리  -->
+	<insert id="insertcomment" parameterType="REPLY_T_Dtos">
+	
+	INSERT INTO TEAMWORK.REPLY_T
+	(R_SEQ,R_CONTENT, R_REF, R_DEPTH, R_UNUM, R_BOARDNAME ,R_REGDATE,A_SEQ)
+	VALUES(REPLY_T_SEQ.NEXTVAL,#{r_content},(SELECT NVL(MAX(R_REF)+1,0) FROM REPLY_T WHERE A_SEQ=#{a_seq}), 0,#{r_unum}, #{r_boardname}, SYSDATE, #{a_seq})
+	
+	</insert>
+	
+	<!-- 7.게시글 댓글을 가져오는 쿼리  -->
+	<select id="commentlist" resultType="REPLY_T_Dtos" parameterType="REPLY_T_Dtos">
+	
+	SELECT R_SEQ, R_CONTENT, R_REF, R_DEPTH, R_UNUM, R_BOARDNAME, R_REGDATE, A_SEQ
+	FROM TEAMWORK.REPLY_T WHERE A_SEQ=#{a_seq}
+	
+	
+	</select>
+	
+	
+	
 
 
 </mapper>

@@ -58,11 +58,11 @@
 		
 			<tr>
 				<td>${dto.a_seq}</td>
-				<td><a href="detailboard.do?seq=${dto.a_seq}">${dto.a_title}</a></td>
+				<td><a href="detailboard.do?a_seq=${dto.a_seq}">${dto.a_title}</a></td>
 				<td>${dto.a_name}</td>
 				<td>${dto.a_regdate}</td>
-				<td>${dto.a_ansnum}</td><!--조회는 쿼리문을 추가해야함-->
-				<td>${dto.funtion_T_Dtos.f_like}</td><!--***좋아요는 쿼리문에서 추가해야함  -->
+				<td>${dto.a_recount}</td><!--조회는 쿼리문을 추가해야함-->
+				<td>${dto.funtion_T_Dtos.f_like}</td><!--***좋아요는 쿼리문에서 추가해야함(추가함)  -->
 				<td>${dto.a_ref}</td><!--화면에서 나중에 보여지면 안됨  -->
 				<td>${dto.a_step}</td>
 				<td>${dto.a_depth}</td>

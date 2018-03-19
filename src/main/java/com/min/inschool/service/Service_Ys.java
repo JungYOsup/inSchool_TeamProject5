@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.min.inschool.daos.IDao_Ys;
 import com.min.inschool.dtos.Answer_T_Dtos;
+import com.min.inschool.dtos.REPLY_T_Dtos;
 
 @Service
 public class Service_Ys implements IService_Ys {
@@ -37,10 +38,15 @@ public class Service_Ys implements IService_Ys {
 	}
 
 	@Override
-	public int commentBoardInsert(Answer_T_Dtos dto) {
-		return 0;
+	public boolean commentBoardInsert(REPLY_T_Dtos dto) {
+		return YSDao.commentBoardInsert(dto);
 	}
 
+	@Override
+	public List<REPLY_T_Dtos> selectAllcomment(REPLY_T_Dtos dto) {
+		return YSDao.selectAllcomment(dto);
+	}
+	
 	@Override
 	public int DoublecommentBoardInsert(Answer_T_Dtos dto) {
 		return 0;
@@ -57,8 +63,8 @@ public class Service_Ys implements IService_Ys {
 	}
 
 	@Override
-	public Answer_T_Dtos getBoard(int seq) {
-		return YSDao.getBoard(seq);
+	public Answer_T_Dtos getBoard(Answer_T_Dtos dto) {
+		return YSDao.getBoard(dto);
 	}
 
 	@Override
@@ -70,6 +76,13 @@ public class Service_Ys implements IService_Ys {
 	public Answer_T_Dtos getBoardAjax(int seq) {
 		return null;
 	}
+
+	@Override
+	public boolean insertlike(Answer_T_Dtos dto) {
+		
+		return YSDao.insertlike(dto);
+	}
+
 
 	
 

@@ -182,6 +182,35 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.5.4</version>
 		</dependency>
+		
+		<!--spring에서 ajax사용시 필요한것(Json 라이브러리) -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		
+		<!--spring에서 ajax사용시 필요한것(ajax는 String으로 왔다갔다 하기 때문에 안깨지게 String으로 처리하겠다) -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
+		
+		<!--spring에서 ajax사용시 필요한것( 맵을만들고 담고 jason방식으로 변환하고 write()를 써서보내줬는데, 이걸사용시 
+			맵에 담고 그냥 보내주기만 하면됨 ) -->
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.4</version>
+		</dependency>
+		
+		
+		
+		
+		
+		
 
 
 
