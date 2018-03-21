@@ -3,11 +3,12 @@ package com.min.inschool.service;
 import java.util.List;
 
 import com.min.inschool.dtos.Answer_T_Dtos;
+import com.min.inschool.dtos.Funtion_T_Dtos;
 import com.min.inschool.dtos.REPLY_T_Dtos;
 
 public interface IService_Ys {
 	
-	//1. 모든 데이터를 가져온다. (SELECT)
+		//1. 모든 데이터를 가져온다. (SELECT)
 		public List<Answer_T_Dtos> getAllList();
 		
 		//2. 게시판에 글쓰는 메서드(메인및 상세보기) (INSERT)
@@ -25,26 +26,46 @@ public interface IService_Ys {
 		//6. 댓글에 댓글달기 (INSERT)
 		public int DoublecommentBoardInsert(Answer_T_Dtos dto); 
 		
-		//6. 댓글을 가져오는 메서드 
+		//7. 댓글을 가져오는 메서드 
 		
 		public List<REPLY_T_Dtos> selectAllcomment(REPLY_T_Dtos dto);
 		
-		//7. 게시판을 수정하는 메서드(상세보기, 내것을 클릭했을때) (UPDATE)
+		//8. 게시판을 수정하는 메서드(상세보기, 내것을 클릭했을때) (UPDATE)
 		public boolean updateBoard(Answer_T_Dtos dto);
-		//8. 게시판을 삭제하는 메서드 (내것을 클릭했을때) (DELETE)
-		public boolean deleteBoard(int seq);
-		
-		//9. 글 상세보는 메서드 (SELECT)
+				
+		//10. 글 상세보는 메서드 (SELECT)
 		public Answer_T_Dtos getBoard(Answer_T_Dtos dto);
 		
-		//10. 댓글의 수를 조회하는 메서드(SELECT)
+		//11. 댓글의 수를 조회하는 메서드(SELECT)
 		public boolean commentreadCount(int seq);
 		
-		//11. ajax처리 
+		//12. ajax처리 
 		public Answer_T_Dtos getBoardAjax(int seq);
 		
-		//12. 좋아요를 증가시키는 메서드
+		//13. 좋아요를 증가시키는 메서드
 		public boolean insertlike(Answer_T_Dtos dto);
+				
+		//14. 좋아요를 가져오는 메서드
+		public Funtion_T_Dtos selectlike(Answer_T_Dtos dto);
+		
+		//15. 좋아요를 삭제하는 메서드
+		public boolean deletelike(Answer_T_Dtos dto);
+				
+		//16. 즐겨찾기 하는 메서드
+		public boolean insertsearch(Answer_T_Dtos dto);
+		
+		//17. 즐겨찾기 가져오는 메소드
+		public Funtion_T_Dtos selectsearch(Answer_T_Dtos dto);
+		
+		//18. 즐겨찾기를 삭제하는 메서드(DELETE)
+		public boolean deletesearch(Answer_T_Dtos dto);
+		
+		//19. 댓글을 삭제하는 메서드
+		public boolean Deletecomment(REPLY_T_Dtos dto);
+		
+		//20. 게시판을 삭제하는 메서드 (내것을 클릭했을때) (DELETE)
+		public boolean deleteBoard(int a_seq);
+		
 		
 	
 

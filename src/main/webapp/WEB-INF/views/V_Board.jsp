@@ -78,7 +78,6 @@
 	<tr>
 	<td colspan="10">
 		<input type="button" value="글추가" onclick="insertForm()">
-		<input type="submit" value="삭제" >
 	</td>
 	</tr>
 </table>

@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.min.inschool.daos.IDao_Ys;
 import com.min.inschool.dtos.Answer_T_Dtos;
+import com.min.inschool.dtos.Funtion_T_Dtos;
 import com.min.inschool.dtos.REPLY_T_Dtos;
 
 @Service
@@ -57,10 +59,7 @@ public class Service_Ys implements IService_Ys {
 		return YSDao.updateBoard(dto);
 	}
 
-	@Override
-	public boolean deleteBoard(int seq) {
-		return YSDao.deleteBoard(seq);
-	}
+	
 
 	@Override
 	public Answer_T_Dtos getBoard(Answer_T_Dtos dto) {
@@ -81,6 +80,55 @@ public class Service_Ys implements IService_Ys {
 	public boolean insertlike(Answer_T_Dtos dto) {
 		
 		return YSDao.insertlike(dto);
+	}
+
+
+	@Override
+	public Funtion_T_Dtos selectlike(Answer_T_Dtos dto) {
+		// TODO Auto-generated method stub
+		return YSDao.selectlike(dto);
+	}
+	
+	@Override
+	public boolean deletelike(Answer_T_Dtos dto) {
+		return YSDao.deletelike(dto);
+	}
+	
+	@Override
+	public boolean insertsearch(Answer_T_Dtos dto) {
+		return YSDao.insertsearch(dto);
+	}
+
+	@Override
+	public Funtion_T_Dtos selectsearch(Answer_T_Dtos dto) {
+		
+		return YSDao.selectsearch(dto);
+	}
+
+	@Override
+	public boolean deletesearch(Answer_T_Dtos dto) {
+		
+		return YSDao.deletesearch(dto);
+	}
+
+	@Override
+	public boolean Deletecomment(REPLY_T_Dtos dto) {
+		
+		return YSDao.Deletecomment(dto);
+	}
+	
+	@Transactional
+	@Override
+	public boolean deleteBoard(int a_seq) {
+		int count =0;
+		
+		YSDao.deleteAllfunction(a_seq);
+		
+		YSDao.deleteAllcomment(a_seq);
+		
+		count = YSDao.deleteBoard(a_seq);
+		
+		return count>0?true:false;
 	}
 
 
