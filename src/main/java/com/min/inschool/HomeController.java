@@ -63,10 +63,15 @@ public class HomeController {
 
 
 		logger.info("모든 게시글을 가져옵니다.");
-
+		
+		logger.info("페이지의 숫자를 가져옵니다");
+		
 		List<Answer_T_Dtos> lists = service_ys.getAllList();
+		int counts = service_ys.boardcount();
+		
 		System.out.println(lists);
 		model.addAttribute("lists", lists);
+		model.addAttribute("counts", counts);
 
 		return "V_Board";
 	}
@@ -277,7 +282,6 @@ public class HomeController {
 		}
 
 		//Model을 통해서 Controll로 이동해서 값을 전달하면 값을 못받더라..
-
 		return "redirect:detailboard.do?a_seq="+dto.getA_seq();
 
 	}
@@ -322,24 +326,95 @@ public class HomeController {
 		return "redirect:detailboard.do?a_seq="+dto.getA_seq();
 
 	}
+	
+	//11.답글창으로 이동합니다.
+	@RequestMapping(value ="/replyboard.do")
+	public String replyboard(Locale locale, Model model,Answer_T_Dtos dto) {
 
+		logger.info("답글페이지로 이동 합니다");
+		System.out.println(dto.getA_seq());
+		
+		model.addAttribute("dto", dto);
+		return "replyboard";
 
+	}
+	
+	//12.답글을 작성합니다
+	@RequestMapping(value ="/insertreplyboard.do")
+	public String insertreplyboard(Locale locale, Model model,Answer_T_Dtos dto) {
 
+		logger.info("답글을 작성 합니다");
+		
+		System.out.println(dto);
+		
+		boolean isS = service_ys.replyboard(dto);
+		
+		if(isS) {
+			System.out.println("답글 달기에 성공했습니다");
+			
+		}else {
+			System.out.println("답글 달기에 실패했습니다");
+		}
+			
 
+		return "redirect:V_Board.do";
 
+	}
+	
+	//13.댓글에 댓글을 작성합니다. (댓글에 댓글다는 쿼리는 나중에 구현해보자)
+	@RequestMapping(value ="/DoublecommentBoardInsert.do")
+	public String DoublecommentBoardInsert(Locale locale, Model model, REPLY_T_Dtos dto) {
 
+		logger.info("댓글에 댓글을 달았습니다.");
 
+		boolean isS = service_ys.DoublecommentBoardInsert(dto);
 
+		if(isS) {
 
+			System.out.println("댓글에 댓글달기 성공");
+		}
 
+		return "redirect:detailboard.do?a_seq="+dto.getA_seq();
 
+	}
+	
+	//14.수정폼으로 이동합니다 
+	@RequestMapping(value ="/moveupdateboard.do")
+	public String moveupdateboard(Locale locale, Model model, Answer_T_Dtos dto) {
 
+		logger.info("수정폼으로 이동합니다.");
+		
+		Answer_T_Dtos dtos=service_ys.getBoard(dto);
+		
 
+		model.addAttribute("dtos", dtos);
+		return "updateboard";
 
+	}
+	
+	//15.수정하는 메서드
+	@RequestMapping(value ="/updateboard.do" )
+	public String updateboard(Locale locale, Model model, Answer_T_Dtos dto) {
 
+		logger.info("수정폼으로 이동합니다.");
+		
+		boolean isS = service_ys.updateBoard(dto);
+		
+		if(isS) {
+			System.out.println("수정이 성공하셧습니다");
+		}else {
+			System.out.println("수정 실패");
+		}
+	
+		return "redirect:detailboard.do?a_seq="+dto.getA_seq();
 
-
-
+	}
+	
+	
+	
+	
+	
+	
 	// 이미지 첨부 팝업
 	@RequestMapping(value="/imagePopup.do")
 	public String imagePopup() {

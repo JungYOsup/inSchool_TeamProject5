@@ -20,8 +20,8 @@ public interface IDao_Ys {
 	//4. 답글달기 메서드 (상세보기) (INSERT,UPDATE-트랜젝션처리)
 	public boolean replyboard(Answer_T_Dtos dto);
 	
-	public int replyBoardUpdate(int seq);
-	public int replyBaordInsert(Answer_T_Dtos dto);
+	public int replyBoardUpdate(Answer_T_Dtos dto);
+	public int replyBoardInsert(Answer_T_Dtos dto);
 		
 	//5. 댓글다는 메서드(상세보기) (INSERT)
 	public boolean commentBoardInsert(REPLY_T_Dtos dto);
@@ -30,9 +30,8 @@ public interface IDao_Ys {
 	public List<REPLY_T_Dtos> selectAllcomment(REPLY_T_Dtos dto);
 		
 	//7. 댓글에 댓글달기 (INSERT)
-	public int DoublecommentBoardInsert(Answer_T_Dtos dto); 
-	
-		
+	public boolean DoublecommentBoardInsert(REPLY_T_Dtos dto); 
+			
 	//8. 게시판을 수정하는 메서드(상세보기, 내것을 클릭했을때) (UPDATE)
 	public boolean updateBoard(Answer_T_Dtos dto);
 		
@@ -42,8 +41,6 @@ public interface IDao_Ys {
 	//11. 댓글의 수를 조회하는 메서드(SELECT)
 	public boolean commentreadCount(int seq);
 	
-	//12. ajax처리 
-	public Answer_T_Dtos getBoardAjax(int seq);
 	
 	//13. 좋아요를 누르는 메서드(UPDATE)
 	public boolean insertlike(Answer_T_Dtos dto);
@@ -74,6 +71,10 @@ public interface IDao_Ys {
 	
 	//21. 해당게시글의 기능을 모두 삭제하는 메서드
 	public int deleteAllfunction(int a_seq);
+	
+	//22. 해당게시글의 페이지수를 가져오는 메서드
+	public int boardcount();
+	
 	
 	
 	

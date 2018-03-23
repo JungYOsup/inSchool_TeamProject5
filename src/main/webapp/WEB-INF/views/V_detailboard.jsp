@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
+<%
+	response.setContentType("text/html; charset=utf-8");
+%>
+
+
 <!DOCTYPE html>
 
 
@@ -119,32 +127,13 @@
 
 	<div class="content">
 
-		<div class="title">
-
-			<table>
-
-				<tr>
-					<td>[한국수력원자력]</td>
-					<td>타이틀</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>날짜</td>
-				</tr>
-			</table>
-
-		</div>
+		
 
 		<div id="container">
-			<table class="table table-striped">
+			<table>
 				<tr>
-					<th>번호</th>
-					<td>${dto.a_seq}</td>
-				</tr>
-				<tr>
-					<th>제목</th>
-					<td>${dto.a_title}</td>
+					<td>${dto.a_option}${dto.a_title}</td>
+					
 				</tr>
 
 				<c:choose>
@@ -205,18 +194,7 @@
 					<!--사용자의 a_num과 게시판의 dto.a_num이 같아야지 삭제버튼이 생기도록하기위해서
 					U49대신 나중에 사용자의 a_num을 추가시켜줘야한다. -->
 
-					<c:choose>
-
-						<c:when test="${'U49' eq dto.a_unum}">
-
-							<td><button
-									onclick="location.href='deleteboard.do?a_seq=${dto.a_seq}'">삭제</button></td>
-
-						</c:when>
-
-
-
-					</c:choose>
+					
 
 
 
@@ -303,9 +281,25 @@
 			</table>
 
 			<table>
+					
+					
+					
 				<tr>
+					<td><button onclick="location.href='replyboard.do?a_seq=${dto.a_seq}'">답글</button></td>
+					
+					<c:choose>
+
+						<c:when test="${'U49' eq dto.a_unum}">
+							
+							<td><button onclick="location.href='moveupdateboard.do?a_seq=${dto.a_seq}'">수정</button> </td>
+							<td><button	onclick="location.href='deleteboard.do?a_seq=${dto.a_seq}'">삭제</button></td>
+
+						</c:when>
+
+
+					</c:choose>
 					<td><button onclick="location.href='V_Board.do'">목록</button></td>
-					<td><button>답글</button></td>
+					
 				</tr>
 
 			</table>

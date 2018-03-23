@@ -34,9 +34,15 @@ public class Service_Ys implements IService_Ys {
 		return YSDao.readCount(seq);
 	}
 
+	@Transactional
 	@Override
 	public boolean replyboard(Answer_T_Dtos dto) {
-		return false;
+		int count =0;
+		
+		YSDao.replyBoardUpdate(dto);
+		count = YSDao.replyBoardInsert(dto);
+		
+		return count>0?true:false;
 	}
 
 	@Override
@@ -50,8 +56,8 @@ public class Service_Ys implements IService_Ys {
 	}
 	
 	@Override
-	public int DoublecommentBoardInsert(Answer_T_Dtos dto) {
-		return 0;
+	public boolean DoublecommentBoardInsert(REPLY_T_Dtos dto) {
+		return YSDao.DoublecommentBoardInsert(dto);
 	}
 
 	@Override
@@ -70,10 +76,6 @@ public class Service_Ys implements IService_Ys {
 	public boolean commentreadCount(int seq) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-	@Override
-	public Answer_T_Dtos getBoardAjax(int seq) {
-		return null;
 	}
 
 	@Override
@@ -129,6 +131,11 @@ public class Service_Ys implements IService_Ys {
 		count = YSDao.deleteBoard(a_seq);
 		
 		return count>0?true:false;
+	}
+	
+	@Override
+	public int boardcount() {
+		return YSDao.boardcount();
 	}
 
 

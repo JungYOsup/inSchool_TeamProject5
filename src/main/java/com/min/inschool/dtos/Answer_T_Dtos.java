@@ -33,19 +33,19 @@ public class Answer_T_Dtos implements Serializable{
 	private int img_size;
 	private Date v_img_regdate;
 	private Funtion_T_Dtos funtion_T_Dtos;
-	
-	
+	private String a_option;
 	
 	
 	public Answer_T_Dtos() {
-		
+
 	}
-		
+	
+	
 	
 	public Answer_T_Dtos(int a_seq, String a_title, String a_content1, String a_content2, String a_content3,
 			String a_name, Date a_regdate, int a_recount, String a_unum, String a_comnum, String a_boardname,
 			int a_ansnum, int a_ref, int a_step, int a_depth, String v_oriname, String v_type, int v_filesize,
-			String img_name, int img_size, Date v_img_regdate, Funtion_T_Dtos funtion_T_Dtos) {
+			String img_name, int img_size, Date v_img_regdate, Funtion_T_Dtos funtion_T_Dtos, String a_option) {
 		super();
 		this.a_seq = a_seq;
 		this.a_title = a_title;
@@ -69,7 +69,12 @@ public class Answer_T_Dtos implements Serializable{
 		this.img_size = img_size;
 		this.v_img_regdate = v_img_regdate;
 		this.funtion_T_Dtos = funtion_T_Dtos;
+		this.a_option = a_option;
 	}
+
+
+
+
 	public int getA_seq() {
 		return a_seq;
 	}
@@ -202,8 +207,12 @@ public class Answer_T_Dtos implements Serializable{
 	public void setFuntion_T_Dtos(Funtion_T_Dtos funtion_T_Dtos) {
 		this.funtion_T_Dtos = funtion_T_Dtos;
 	}
-
-
+	public String getA_option() {
+		return a_option;
+	}
+	public void setA_option(String a_option) {
+		this.a_option = a_option;
+	}
 	@Override
 	public String toString() {
 		return "Answer_T_Dtos [a_seq=" + a_seq + ", a_title=" + a_title + ", a_content1=" + a_content1 + ", a_content2="
@@ -212,8 +221,9 @@ public class Answer_T_Dtos implements Serializable{
 				+ a_boardname + ", a_ansnum=" + a_ansnum + ", a_ref=" + a_ref + ", a_step=" + a_step + ", a_depth="
 				+ a_depth + ", v_oriname=" + v_oriname + ", v_type=" + v_type + ", v_filesize=" + v_filesize
 				+ ", img_name=" + img_name + ", img_size=" + img_size + ", v_img_regdate=" + v_img_regdate
-				+ ", funtion_T_Dtos=" + funtion_T_Dtos + "]";
+				+ ", funtion_T_Dtos=" + funtion_T_Dtos + ", a_option=" + a_option + "]";
 	}
+	
 	
 	
 	

@@ -24,7 +24,7 @@ public interface IService_Ys {
 		public boolean commentBoardInsert(REPLY_T_Dtos dto);
 		
 		//6. 댓글에 댓글달기 (INSERT)
-		public int DoublecommentBoardInsert(Answer_T_Dtos dto); 
+		public boolean DoublecommentBoardInsert(REPLY_T_Dtos dto); 
 		
 		//7. 댓글을 가져오는 메서드 
 		
@@ -39,8 +39,6 @@ public interface IService_Ys {
 		//11. 댓글의 수를 조회하는 메서드(SELECT)
 		public boolean commentreadCount(int seq);
 		
-		//12. ajax처리 
-		public Answer_T_Dtos getBoardAjax(int seq);
 		
 		//13. 좋아요를 증가시키는 메서드
 		public boolean insertlike(Answer_T_Dtos dto);
@@ -65,6 +63,10 @@ public interface IService_Ys {
 		
 		//20. 게시판을 삭제하는 메서드 (내것을 클릭했을때) (DELETE)
 		public boolean deleteBoard(int a_seq);
+		
+		//21. 페이지수를 가져오는 메서드
+		public int boardcount();
+	
 		
 		
 	

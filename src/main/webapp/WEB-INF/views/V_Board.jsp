@@ -58,7 +58,7 @@
 		
 			<tr>
 				<td>${dto.a_seq}</td>
-				<td><a href="detailboard.do?a_seq=${dto.a_seq}">${dto.a_title}</a></td>
+				<td><a href="detailboard.do?a_seq=${dto.a_seq}">${dto.a_option}${dto.a_title}</a></td>
 				<td>${dto.a_name}</td>
 				<td>${dto.a_regdate}</td>
 				<td>${dto.a_recount}</td><!--조회는 쿼리문을 추가해야함-->
@@ -68,6 +68,7 @@
 				<td>${dto.a_depth}</td>
 			</tr>
 		</c:forEach>
+			
 		
 	
 	
