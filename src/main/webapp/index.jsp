@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<a href="home.do">안녕하세요</a>
+<a href="V_Board.do">안녕하세요 정요섭입니다</a>
 
 
 </body>
