@@ -13,9 +13,10 @@
 	</typeAliases>
   
   <mappers>
-  
+  	
 	  <mapper resource="/sqls/datamapper.xml"/>
-  
+	  <mapper resource="/sqls/main_mapper.xml"/>
+  	
   </mappers>
   
   

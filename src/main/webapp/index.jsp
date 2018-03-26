@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<a href="home.do">안녕하세요</a>
+<jsp:forward page="/main.do"></jsp:forward>
 
 
 </body>

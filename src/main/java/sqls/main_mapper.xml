@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inschool.main">
+
+	<select id="mainlistResume" resultType="Answer_T_Dtos">
+
+<![CDATA[SELECT a_title FROM ANSWER_T WHERE a_boardname='resume' AND rownum<11 ORDER BY A_REGDATE DESC]]>
+
+	</select>
+
+	<select id="mainlistInter" resultType="Answer_T_Dtos">
+
+<![CDATA[SELECT a_title FROM ANSWER_T WHERE a_boardname='inter' AND rownum<11 ORDER BY A_REGDATE DESC]]>
+
+	</select>
+
+
+	<select id="mainlistFree" resultType="Answer_T_Dtos">
+
+<![CDATA[SELECT a_title FROM ANSWER_T WHERE a_boardname='free' AND rownum<11 ORDER BY A_REGDATE DESC]]>
+
+	</select>
+
+
+	<select id="mainlistQA" resultType="Answer_T_Dtos">
+
+<![CDATA[SELECT a_title FROM ANSWER_T WHERE a_boardname='qa' AND rownum<11 ORDER BY A_REGDATE DESC]]>
+
+	</select>
+
+	<select id="searchAll" resultType="Answer_T_Dtos" parameterType="Map">
+		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY A_REGDATE DESC) AS RANK10 ,A_SEQ,
+		A_TITLE, A_CONTENT1,A_NAME from answer_T WHERE a_title LIKE
+		'%'||#{word}||'%' OR A_CONTENT1 LIKE '%'||#{word}||'%') RANK10
+		WHERE RANK10 BETWEEN #{snum} AND #{enum}
+	</select>
+
+	<select id="searchTitle" resultType="Answer_T_Dtos" parameterType="Map">
+		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY A_REGDATE DESC) AS RANK10 ,A_SEQ,
+		A_TITLE, A_CONTENT1,A_NAME from answer_T WHERE a_title LIKE
+		'%'||#{word}||'%') RANK10 WHERE RANK10 BETWEEN #{snum} AND #{enum}
+
+	</select>
+
+	<select id="searchWriter" resultType="Answer_T_Dtos" parameterType="Map">
+		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY A_REGDATE DESC) AS RANK10 ,A_SEQ,
+		A_TITLE, A_CONTENT1,A_NAME from answer_T WHERE a_name LIKE
+		'%'||#{word}||'%') RANK10 WHERE RANK10 BETWEEN #{snum} AND #{enum}
+	</select>
+
+
+</mapper>
