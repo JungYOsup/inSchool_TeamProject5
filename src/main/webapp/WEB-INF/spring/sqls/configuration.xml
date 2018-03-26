@@ -9,7 +9,6 @@
 		<typeAlias type="com.min.inschool.dtos.Answer_T_Dtos" alias="Answer_T_Dtos"/>
 		<typeAlias type="com.min.inschool.dtos.Funtion_T_Dtos" alias="Funtion_T_Dtos"/>
 		<typeAlias type="com.min.inschool.dtos.REPLY_T_Dtos" alias="REPLY_T_Dtos"/>
-		
 	</typeAliases>
   
   <mappers>

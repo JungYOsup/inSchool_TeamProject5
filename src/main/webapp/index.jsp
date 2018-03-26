@@ -8,7 +8,11 @@
 </head>
 <body>
 
+<<<<<<< HEAD
 <jsp:forward page="/main.do"></jsp:forward>
+=======
+<a href="V_Board.do">안녕하세요 정요섭입니다</a>
+>>>>>>> e22c8d0288f8e52f88b5d8fbe65854b3369904ad
 
 
 </body>
