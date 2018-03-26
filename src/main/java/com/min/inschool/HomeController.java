@@ -59,16 +59,25 @@ public class HomeController {
 
 	//1.게시판의 모든 정보를 가지고 온다. 
 	@RequestMapping(value = "/V_Board.do")
-	public String boardlist(Locale locale, Model model) {
+	public String boardlist(Locale locale, Model model,String s_num,String e_num) {
 
-
+		List<Answer_T_Dtos> lists=null;	
+		int counts=0;
+		
 		logger.info("모든 게시글을 가져옵니다.");
 		
-		logger.info("페이지의 숫자를 가져옵니다");
-		
-		List<Answer_T_Dtos> lists = service_ys.getAllList();
-		int counts = service_ys.boardcount();
-		
+		if(s_num==null&&e_num==null) {
+			
+			counts = service_ys.boardcount();
+			lists = service_ys.getAllList();
+			
+		}else {
+			
+			logger.info("페이지의 숫자를 가져옵니다");
+			counts = service_ys.boardcount();
+			lists =service_ys.getAllList(s_num, e_num);
+		}
+				
 		System.out.println(lists);
 		model.addAttribute("lists", lists);
 		model.addAttribute("counts", counts);
@@ -409,6 +418,65 @@ public class HomeController {
 		return "redirect:detailboard.do?a_seq="+dto.getA_seq();
 
 	}
+	//16.그 게시판에 내용을 검색하는 메서드
+	//나중에 페이지가 눌렸을때 UV가 전달되게끔 해주고나서 , Answer_T_Dtos dto로 바꿔주고 지금은 UV를 받으므로 String UV로 받는다.
+	@RequestMapping(value ="/searchword.do" )
+	public String searchboard(Locale locale, Model model, String a_boardname,String searchword,String searchoption,String s_num,String e_num) {
+		
+		logger.info("검색창으로 이동합니다.");
+		int counts = 0;
+		System.out.println(a_boardname);
+		System.out.println(searchword);
+		System.out.println(searchoption);
+		
+		List<Answer_T_Dtos> lists=null;	
+				
+		if(searchoption.equals("제목+내용")){
+			
+			if(s_num==null&&e_num==null) {
+				
+			
+				counts = service_ys.searchAllboardcount(searchword, a_boardname); //이거 바꾸고 
+				lists =service_ys.getAllsearch(searchword, a_boardname);
+				
+			}else {
+				
+				logger.info("페이지의 숫자를 가져옵니다");
+				counts = service_ys.searchAllboardcount(searchword, a_boardname); //이거 바꾸고 
+				lists =service_ys.getAllsearch(searchword, a_boardname,s_num,e_num);
+				
+			}
+			
+			
+			 
+		}else if(searchoption.equals("제목만")){
+			
+			if(s_num==null&&e_num==null) {
+								
+				counts = service_ys.searchTitleboardcount(searchword, a_boardname); //이거 바꾸고 
+				lists =service_ys.gettitlesearch(searchword, a_boardname);
+				
+			}else {
+				
+				logger.info("페이지의 숫자를 가져옵니다");
+				counts = service_ys.searchTitleboardcount(searchword, a_boardname); //이거 바꾸고
+				lists =service_ys.gettitlesearch(searchword, a_boardname,s_num,e_num);
+				
+			}
+				
+		}else{
+			
+			System.out.println("작성자는 나중에");
+			
+		}
+		
+		model.addAttribute("counts", counts);
+		model.addAttribute("lists", lists);
+		
+		return "searchboard";
+
+	}
+	
 	
 	
 	

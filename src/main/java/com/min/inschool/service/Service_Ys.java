@@ -22,6 +22,12 @@ public class Service_Ys implements IService_Ys {
 		
 		return YSDao.getAllList();
 	}
+	
+	@Override
+	public List<Answer_T_Dtos> getAllList(String s_num,String e_num) {
+		
+		return YSDao.getAllList(s_num, e_num);
+	}
 
 	@Override
 	public boolean insertboard(Answer_T_Dtos dto) {
@@ -137,6 +143,46 @@ public class Service_Ys implements IService_Ys {
 	public int boardcount() {
 		return YSDao.boardcount();
 	}
+
+	@Override
+	public List<Answer_T_Dtos> getAllsearch(String searchword, String a_boardname) {
+		// TODO Auto-generated method stub
+		return YSDao.getAllsearch(searchword, a_boardname);
+	}
+
+	@Override
+	public List<Answer_T_Dtos> gettitlesearch(String searchword, String a_boardname) {
+		// TODO Auto-generated method stub
+		return YSDao.gettitlesearch(searchword, a_boardname);
+		
+	}
+
+	@Override
+	public int searchAllboardcount(String searchword, String a_boardname) {
+		// TODO Auto-generated method stub
+		return YSDao.searchAllboardcount(searchword, a_boardname);
+	}
+
+	@Override
+	public int searchTitleboardcount(String searchword, String a_boardname) {
+		// TODO Auto-generated method stub
+		return YSDao.searchAllboardcount(searchword, a_boardname);
+	}
+
+	@Override
+	public List<Answer_T_Dtos> getAllsearch(String searchword, String a_boardname, String s_num, String e_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Answer_T_Dtos> gettitlesearch(String searchword, String a_boardname, String s_num, String e_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+	
 
 
 	

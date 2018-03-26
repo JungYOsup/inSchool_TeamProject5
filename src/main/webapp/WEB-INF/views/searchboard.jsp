@@ -3,11 +3,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!--나중에 이 화면을 복붙하기전에 미니프로젝트에서 프레임워크 적용햇던 테이블의 순차정렬되는 프레임워크 적용시킨다음에 복붙하자 -->
+
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:useBean id="util" class="com.min.inschool.dbinfo.Util"/> <!--class는 패키지명.클래스  -->
 <script type="text/javascript">
 	function insertForm() {
 
@@ -18,7 +17,7 @@
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>유저 동영상 게시판</title>
+<title>검색할때 나오는 게시판</title>
 </head>
 
 
@@ -45,8 +44,6 @@
 
 		</tr>
 		<c:choose>
-
-
 			<c:when test="${empty lists}">
 				<%-- ${empty lists} = lists객체가 비어있다면  --%>
 				<tr>
@@ -60,14 +57,7 @@
 
 					<tr>
 						<td>${dto.a_seq}</td>
-						
-						
-						<td>
-							<jsp:setProperty property="arrowNbsp" name="util" value="${dto.a_depth}"/> 
-							<jsp:getProperty property="arrowNbsp" name="util"/>
-						<a href="detailboard.do?a_seq=${dto.a_seq}">${dto.a_option}${dto.a_title}[${dto.a_ansnum}]</a>
-						
-						</td>
+						<td><a href="detailboard.do?a_seq=${dto.a_seq}">${dto.a_option}${dto.a_title}[${dto.a_ansnum}]</a></td>
 						<td>${dto.a_name}</td>
 						<td>${dto.a_regdate}</td>
 						<td>${dto.a_recount}</td>
@@ -93,7 +83,7 @@
 
 	<table class="button">
 		<tr>
-			<td><input type="button" value="글쓰기" onclick="insertForm()">
+			<td><input type="button" value="글추가" onclick="insertForm()">
 			</td>
 		</tr>
 	</table>
@@ -103,56 +93,39 @@
 		<tr>
 
 
-			<c:choose>
-				<c:when test="${'0' eq counts }">
-					<td><c:forEach var="i" begin="0" end="${counts}" step="1">
+			<td><c:forEach var="i" begin="0" end="${counts-1}" step="1">
 
-							<a class="pageNum"
-								href="V_Board.do?s_num=${i<1?'1':(i*10)+1}&e_num=${i<1?'10':(i+1)*'10'}">
-								${i+'1'}</a>
+					<a class="pageNum"
+						href="V_Board.do?s_num=${i<1?'1':(i*10)+1}&e_num=${i<1?'10':(i+1)*'10'}">
+						${i+'1'}</a>
 
-						</c:forEach></td>
-				</c:when>
-
-
-				<c:otherwise>
-					<td><c:forEach var="i" begin="0" end="${counts-1}" step="1">
-
-							<a class="pageNum"
-								href="V_Board.do?s_num=${i<1?'1':(i*10)+1}&e_num=${i<1?'10':(i+1)*'10'}">
-								${i+'1'}</a>
-
-						</c:forEach></td>
-
-
-				</c:otherwise>
-			</c:choose>
+			</c:forEach></td>
 
 		</tr>
 	</table>
 
 
 	<form action="searchword.do" method="post">
+	
+	<table class="search">
+		<tr>
+			<td>
+			<!--내가 이 페이지를 눌렀을때 UV가 전달되게끔 해주면 된다.  -->
+			<input type="hidden" name="a_boardname" value="UV"> <!--페이지를 눌렀을때 name을 ${dto.a_boardname}으로 해준다. 지금은 연습이라 a_boardname로 해줌  -->
+			
+			<select name="searchoption">
+				<option value="제목+내용">제목+내용</option> 
+				<option value="제목만" >제목만</option>
+				<option value="작성자">작성자</option>
+			</select> 
+			</td>
+			
+			<td><input type="search" name="searchword"></td>
+			<td><button>검색</button></td>
+		</tr>
 
-		<table class="search">
-			<tr>
-				<td>
-					<!--내가 이 페이지를 눌렀을때 UV가 전달되게끔 해주면 된다.  --> <input type="hidden"
-					name="a_boardname" value="UV"> <!--페이지를 눌렀을때 name을 ${dto.a_boardname}으로 해준다. 지금은 연습이라 a_boardname로 해줌  -->
-
-					<select name="searchoption">
-						<option value="제목+내용">제목+내용</option>
-						<option value="제목만">제목만</option>
-						<option value="작성자">작성자</option>
-				</select>
-				</td>
-
-				<td><input type="search" name="searchword"></td>
-				<td><button>검색</button></td>
-			</tr>
-
-		</table>
-
+	</table>
+	
 	</form>
 
 </body>

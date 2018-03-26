@@ -11,6 +11,9 @@ public interface IDao_Ys {
 	//1. 모든 데이터를 가져온다. (SELECT)
 	public List<Answer_T_Dtos> getAllList();
 	
+	//2. 페이지에 해당되는 데이터를 가져온다.
+	public List<Answer_T_Dtos> getAllList(String s_num,String e_num);
+	
 	//2. 게시판에 글쓰는 메서드(메인및 상세보기) (INSERT)
 	public boolean insertboard(Answer_T_Dtos dto);
 	
@@ -75,6 +78,23 @@ public interface IDao_Ys {
 	//22. 해당게시글의 페이지수를 가져오는 메서드
 	public int boardcount();
 	
+	//23. 제목+내용을 검색한는 메서드
+	public List<Answer_T_Dtos> getAllsearch(String searchword,String a_boardname); 
+	
+	//24. 제목만 검색하는 메서드
+	public List<Answer_T_Dtos> gettitlesearch(String searchword,String a_boardname); 
+	
+	//25. 검색한 페이지수를 가져오는 메서드(제목+타이틀)
+	public int searchAllboardcount(String searchword,String a_boardname);
+	
+	//26. 검색한 페이지수를 가져오는 메서드(제목)
+	public int searchTitleboardcount(String searchword,String a_boardname);
+	
+	//27. 검색한 특정페이지의 데이터를 가져옴
+	public List<Answer_T_Dtos> getAllsearch(String searchword,String a_boardname,String s_num,String e_num);
+		
+	//28. 검색한 특정페이지의 데이터를 가져옴
+	public List<Answer_T_Dtos> gettitlesearch(String searchword,String a_boardname,String s_num,String e_num);
 	
 	
 	
