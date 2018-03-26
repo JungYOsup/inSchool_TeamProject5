@@ -172,13 +172,13 @@ public class Service_Ys implements IService_Ys {
 	@Override
 	public List<Answer_T_Dtos> getAllsearch(String searchword, String a_boardname, String s_num, String e_num) {
 		// TODO Auto-generated method stub
-		return null;
+		return YSDao.getAllsearch(searchword, a_boardname, s_num, e_num);
 	}
 
 	@Override
 	public List<Answer_T_Dtos> gettitlesearch(String searchword, String a_boardname, String s_num, String e_num) {
 		// TODO Auto-generated method stub
-		return null;
+		return YSDao.gettitlesearch(searchword, a_boardname, s_num, e_num);
 	}
 	
 
