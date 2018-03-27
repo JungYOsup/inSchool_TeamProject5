@@ -13,7 +13,10 @@
 		location.href = "daum.do";
 
 	}
+	
+	
 </script>
+
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -94,9 +97,9 @@
 
 
 			<td><c:forEach var="i" begin="0" end="${counts-1}" step="1">
-
+				
 					<a class="pageNum"
-						href="V_Board.do?s_num=${i<1?'1':(i*10)+1}&e_num=${i<1?'10':(i+1)*'10'}">
+						href="searchword.do?s_num=${i<1?'1':(i*10)+1}&e_num=${i<1?'10':(i+1)*'10'}">
 						${i+'1'}</a>
 
 			</c:forEach></td>

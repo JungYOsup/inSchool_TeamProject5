@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -63,21 +64,21 @@ public class HomeController {
 
 		List<Answer_T_Dtos> lists=null;	
 		int counts=0;
-		
+
 		logger.info("모든 게시글을 가져옵니다.");
-		
+
 		if(s_num==null&&e_num==null) {
-			
+
 			counts = service_ys.boardcount();
 			lists = service_ys.getAllList();
-			
+
 		}else {
-			
+
 			logger.info("페이지의 숫자를 가져옵니다");
 			counts = service_ys.boardcount();
 			lists =service_ys.getAllList(s_num, e_num);
 		}
-				
+
 		System.out.println(lists);
 		model.addAttribute("lists", lists);
 		model.addAttribute("counts", counts);
@@ -297,13 +298,13 @@ public class HomeController {
 
 	//9.자기 글을 삭제합니다. (삭제하기 위해서는 FK를 삭제한다음에 PK를 삭제해야하므로 TRANSACTION처리를 해줘야곘다
 	//					 그래서 댓글 삭제 + 좋아요 또는 즐겨찾기 삭제를 한다음에 삭제를 해야한다, 그러나 댓글삭제도 필요하고 좋아요,즐겨찾기 삭제는 이미 있으므로 나중에 삭제들을 다 구현한다음에 합치기로 하자)
-	
+
 	//그리고 넘어오는 parameter 이름이 a_seq이므로 여기서 받는 parameter도 이름이 같게끔 a_seq로 받아줘야한다. 그렇지 않을경우 오류가 뜸
 	@RequestMapping(value ="/deleteboard.do")
 	public String deleteboard(Locale locale, Model model,int a_seq) {
 
 		logger.info("해당글을 삭제 합니다");
-		
+
 		System.out.println(a_seq);
 		boolean isS = service_ys.deleteBoard(a_seq);
 
@@ -335,41 +336,41 @@ public class HomeController {
 		return "redirect:detailboard.do?a_seq="+dto.getA_seq();
 
 	}
-	
+
 	//11.답글창으로 이동합니다.
 	@RequestMapping(value ="/replyboard.do")
 	public String replyboard(Locale locale, Model model,Answer_T_Dtos dto) {
 
 		logger.info("답글페이지로 이동 합니다");
 		System.out.println(dto.getA_seq());
-		
+
 		model.addAttribute("dto", dto);
 		return "replyboard";
 
 	}
-	
+
 	//12.답글을 작성합니다
 	@RequestMapping(value ="/insertreplyboard.do")
 	public String insertreplyboard(Locale locale, Model model,Answer_T_Dtos dto) {
 
 		logger.info("답글을 작성 합니다");
-		
+
 		System.out.println(dto);
-		
+
 		boolean isS = service_ys.replyboard(dto);
-		
+
 		if(isS) {
 			System.out.println("답글 달기에 성공했습니다");
-			
+
 		}else {
 			System.out.println("답글 달기에 실패했습니다");
 		}
-			
+
 
 		return "redirect:V_Board.do";
 
 	}
-	
+
 	//13.댓글에 댓글을 작성합니다. (댓글에 댓글다는 쿼리는 나중에 구현해보자)
 	@RequestMapping(value ="/DoublecommentBoardInsert.do")
 	public String DoublecommentBoardInsert(Locale locale, Model model, REPLY_T_Dtos dto) {
@@ -386,103 +387,152 @@ public class HomeController {
 		return "redirect:detailboard.do?a_seq="+dto.getA_seq();
 
 	}
-	
+
 	//14.수정폼으로 이동합니다 
 	@RequestMapping(value ="/moveupdateboard.do")
 	public String moveupdateboard(Locale locale, Model model, Answer_T_Dtos dto) {
 
 		logger.info("수정폼으로 이동합니다.");
-		
+
 		Answer_T_Dtos dtos=service_ys.getBoard(dto);
-		
+
 
 		model.addAttribute("dtos", dtos);
 		return "updateboard";
 
 	}
-	
+
 	//15.수정하는 메서드
 	@RequestMapping(value ="/updateboard.do" )
 	public String updateboard(Locale locale, Model model, Answer_T_Dtos dto) {
 
 		logger.info("수정폼으로 이동합니다.");
-		
+
 		boolean isS = service_ys.updateBoard(dto);
-		
+
 		if(isS) {
 			System.out.println("수정이 성공하셧습니다");
 		}else {
 			System.out.println("수정 실패");
 		}
-	
+
 		return "redirect:detailboard.do?a_seq="+dto.getA_seq();
 
 	}
 	//16.그 게시판에 내용을 검색하는 메서드
 	//나중에 페이지가 눌렸을때 UV가 전달되게끔 해주고나서 , Answer_T_Dtos dto로 바꿔주고 지금은 UV를 받으므로 String UV로 받는다.
 	@RequestMapping(value ="/searchword.do" )
-	public String searchboard(Locale locale, Model model, String a_boardname,String searchword,String searchoption,String s_num,String e_num) {
-		
-		logger.info("검색창으로 이동합니다.");
+	public String searchboard(Locale locale, Model model, String a_boardname,String searchword,String searchoption,String s_num,String e_num,HttpServletRequest request) {
+
+
+		List<Answer_T_Dtos> lists=null;	
 		int counts = 0;
+		
+		if(searchword!=null&&a_boardname!=null){
+			
+			request.getSession().setAttribute("searchword", searchword);
+			request.getSession().setAttribute("a_boardname", a_boardname);
+		}
+		
+
+		logger.info("검색창으로 이동합니다.");
 		System.out.println(a_boardname);
 		System.out.println(searchword);
 		System.out.println(searchoption);
+		System.out.println(s_num);
+		System.out.println(e_num);
 		
-		List<Answer_T_Dtos> lists=null;	
 				
-		if(searchoption.equals("제목+내용")){
+		
+		if(searchoption==null){
+			
+			if(request.getSession().getAttribute("all")=="all"){
+				
+				
+				String searchword2 = (String)request.getSession().getAttribute("searchword");
+				String a_boardname2 = (String)request.getSession().getAttribute("a_boardname");
+				
+				System.out.println(searchword2+"이다");
+				System.out.println(a_boardname2+"이다");
+				
+				logger.info("페이지의 숫자를 가져옵니다!!");
+				counts = service_ys.searchAllboardcount(searchword2, a_boardname2); //이거 바꾸고 
+				lists =service_ys.getAllsearch(searchword2, a_boardname2,s_num,e_num);
+
+			}else {
+				
+				String searchword2 = (String)request.getSession().getAttribute("searchword");
+				String a_boardname2 = (String)request.getSession().getAttribute("a_boardname");
+				
+				logger.info("페이지의 숫자를 가져옵니다");
+				counts = service_ys.searchTitleboardcount(searchword2, a_boardname2); //이거 바꾸고
+				lists =service_ys.gettitlesearch(searchword2, a_boardname2,s_num,e_num);
+				
+			}
+					
+		}else if(searchoption.equals("제목+내용")){
 			
 			if(s_num==null&&e_num==null) {
 				
-			
-				counts = service_ys.searchAllboardcount(searchword, a_boardname); //이거 바꾸고 
+				System.out.println(searchword+"라는값이 잇나요 ?");
+				System.out.println(a_boardname+"값이 잇나요?");
+				
+				counts = service_ys.searchAllboardcount(searchword, a_boardname); //a_boardname을 UV가 아니고, 합치면 다른값으로 해줘야한다. 
 				lists =service_ys.getAllsearch(searchword, a_boardname);
 				
-			}else {
-				
-				logger.info("페이지의 숫자를 가져옵니다");
-				counts = service_ys.searchAllboardcount(searchword, a_boardname); //이거 바꾸고 
-				lists =service_ys.getAllsearch(searchword, a_boardname,s_num,e_num);
+				request.getSession().setAttribute("all","all");
 				
 			}
 			
-			
-			 
 		}else if(searchoption.equals("제목만")){
 			
 			if(s_num==null&&e_num==null) {
-								
+				
 				counts = service_ys.searchTitleboardcount(searchword, a_boardname); //이거 바꾸고 
 				lists =service_ys.gettitlesearch(searchword, a_boardname);
 				
-			}else {
-				
-				logger.info("페이지의 숫자를 가져옵니다");
-				counts = service_ys.searchTitleboardcount(searchword, a_boardname); //이거 바꾸고
-				lists =service_ys.gettitlesearch(searchword, a_boardname,s_num,e_num);
+				request.getSession().setAttribute("title","title");
 				
 			}
-				
-		}else{
-			
-			System.out.println("작성자는 나중에");
 			
 		}
 		
 		model.addAttribute("counts", counts);
 		model.addAttribute("lists", lists);
-		
+
 		return "searchboard";
 
 	}
+
+	//17. 프레임워크 페이지로 이동
+	@RequestMapping(value ="/framworkpage2.do")
+	public String frameworkboard(Locale locale, Model model, Answer_T_Dtos dto) {
+
+
+		return "framworkpage2";
+
+	}
 	
+	//18. 해더페이지로 이동
+	@RequestMapping(value ="/header.do")
+	public String moveboard(Locale locale, Model model) {
+
+
+		return "header";
+
+	}
 	
-	
-	
-	
-	
-	
+	//19. 채팅창으로 이동
+	@RequestMapping(value ="/chat.do")
+	public String chat(Locale locale, Model model) {
+
+
+		return "chat";
+
+	}
+
+
+
 	// 이미지 첨부 팝업
 	@RequestMapping(value="/imagePopup.do")
 	public String imagePopup() {

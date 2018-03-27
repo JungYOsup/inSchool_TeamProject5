@@ -10,8 +10,7 @@ public interface IService_Ys {
 	
 		//1. 모든 데이터를 가져온다. (SELECT)
 		public List<Answer_T_Dtos> getAllList();
-		
-		
+				
 		//2. 특정페이지의 데이터를 가져옴
 		public List<Answer_T_Dtos> getAllList(String s_num,String e_num);
 		
@@ -31,7 +30,6 @@ public interface IService_Ys {
 		public boolean DoublecommentBoardInsert(REPLY_T_Dtos dto); 
 		
 		//7. 댓글을 가져오는 메서드 
-		
 		public List<REPLY_T_Dtos> selectAllcomment(REPLY_T_Dtos dto);
 		
 		//8. 게시판을 수정하는 메서드(상세보기, 내것을 클릭했을때) (UPDATE)

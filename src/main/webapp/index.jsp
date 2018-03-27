@@ -8,7 +8,8 @@
 </head>
 <body>
 
-<a href="V_Board.do">안녕하세요 정요섭입니다</a>
+<a href="framworkpage2.do">안녕하세요 정요섭입니다</a>
+<a href="header.do">해더로 이동</a>
 
 
 </body>

@@ -7,43 +7,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:useBean id="util" class="com.min.inschool.dbinfo.Util"/> <!--class는 패키지명.클래스  -->
+
+
+<script type="text/javascript"
+	src="${ pageContext.request.contextPath }/resources/__jquery.tablesorter/jquery-latest.js"></script>
+<script type="text/javascript"
+	src="${ pageContext.request.contextPath }/resources/__jquery.tablesorter/jquery.tablesorter.js"></script>
+<link rel="stylesheet"
+	href="${ pageContext.request.contextPath }/resources/__jquery.tablesorter/themes/blue/style.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="${ pageContext.request.contextPath }/resources/__jquery.tablesorter/themes/green/style.css"
+	type="text/css">
+
+<jsp:useBean id="util" class="com.min.inschool.dbinfo.Util" />
+<!--class는 패키지명.클래스  -->
+
+
+
+
+
+
 <script type="text/javascript">
 	function insertForm() {
 
 		location.href = "daum.do";
 
 	}
+	
+	$(document).ready(function(){ 
+		$("#myTable").tablesorter();
+	}); 
+	
+	
 </script>
-
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>유저 동영상 게시판</title>
 </head>
 
 
-
 <body>
 
-	<h1>유저 동영상 게시판</h1>
 
-	<table class="main">
+
+
+
+
+	<table id="myTable" class="tablesorter">
 		<!--나중에 FRAMWORK(MIT공대에서 만든)이용해서 오름차순 내림차순 할수있게 해주자  -->
-		<tr>
-			<th>말머리선택(번호)</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
-			<th>조회</th>
-			<th>좋아요</th>
-			<th>ref</th>
-			<!--화면에서 사실상 보여지면 안됨  -->
-			<th>step</th>
-			<!--화면에서 사실상 보여지면 안됨  -->
-			<th>depth</th>
-			<!--화면에서 사실상 보여지면 안됨  -->
-
-		</tr>
+		<thead>
+			<tr>
+				<th>말머리선택(번호)</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회</th>
+				<th>좋아요</th>
+				<th>ref</th>
+				<!--화면에서 사실상 보여지면 안됨  -->
+				<th>step</th>
+				<!--화면에서 사실상 보여지면 안됨  -->
+				<th>depth</th>
+				<!--화면에서 사실상 보여지면 안됨  -->
+			</tr>
+		</thead>
 		<c:choose>
 
 
@@ -60,13 +88,12 @@
 
 					<tr>
 						<td>${dto.a_seq}</td>
-						
-						
-						<td>
-							<jsp:setProperty property="arrowNbsp" name="util" value="${dto.a_depth}"/> 
-							<jsp:getProperty property="arrowNbsp" name="util"/>
-						<a href="detailboard.do?a_seq=${dto.a_seq}">${dto.a_option}${dto.a_title}[${dto.a_ansnum}]</a>
-						
+
+
+						<td><jsp:setProperty property="arrowNbsp" name="util"
+								value="${dto.a_depth}" /> <jsp:getProperty property="arrowNbsp"
+								name="util" /> <a href="detailboard.do?a_seq=${dto.a_seq}">${dto.a_option}${dto.a_title}[${dto.a_ansnum}]</a>
+
 						</td>
 						<td>${dto.a_name}</td>
 						<td>${dto.a_regdate}</td>
@@ -154,6 +181,9 @@
 		</table>
 
 	</form>
+
+
+
 
 </body>
 
