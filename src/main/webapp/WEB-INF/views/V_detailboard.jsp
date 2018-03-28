@@ -233,17 +233,12 @@
 									onclick="reply(${dto.a_seq},'${dto.a_unum}','${dto.a_boardname}')">등록</button>
 
 							</td>
-
 						</tr>
-
 						<!--사용자의 a_num과 게시판의 dto.a_num이 같아야지 삭제버튼이 생기도록하기위해서
 						U49대신 나중에 사용자의 a_num을 추가시켜줘야한다. -->
-
 						<c:choose>
 							<c:when test="${'U49'eq dto.a_unum}">
-
 								<c:forEach items="${lists}" var="dtos">
-
 									<tr>
 										<td><textarea rows="5" cols="100" readonly="readonly"
 												style="background-color: #F2F2F2">${dtos.r_content}</textarea></td>
@@ -251,38 +246,22 @@
 											href="deletecomment.do?r_seq=${dtos.r_seq}&a_seq=${dto.a_seq}">삭제</a></td>
 										<td><a href="#">수정</a></td>
 									</tr>
-
 								</c:forEach>
-
-
 							</c:when>
-
 							<c:otherwise>
 								<c:forEach items="${lists}" var="dtos">
-
 									<tr>
 										<td><textarea rows="5" cols="100" readonly="readonly"
 												style="background-color: #F2F2F2">${dtos.r_content}</textarea></td>
 									</tr>
-
 								</c:forEach>
 							</c:otherwise>
-
 						</c:choose>
-
-
 					</c:otherwise>
-
-
 				</c:choose>
-
-
-
 			</table>
-
-			<table>
-					
-					
+		<table>
+							
 					
 				<tr>
 					<td><button onclick="location.href='replyboard.do?a_seq=${dto.a_seq}'">답글</button></td>
