@@ -37,50 +37,24 @@ private Imain_dao main_dao;
 	}
 
 	@Override
-	public List<Answer_T_Dtos> searchAll(String word, int sNum, int eNum) {
-		return main_dao.searchAll(word,sNum,eNum);
+	public List<Answer_T_Dtos> searchAll(String word) {
+		return main_dao.searchAll(word);
 	}
 
 	@Override
-	public List<Answer_T_Dtos> searchTitle(String word, int sNum, int eNum) {
-		return main_dao.searchTitle(word,sNum,eNum);
+	public List<Answer_T_Dtos> searchTitle(String word) {
+		return main_dao.searchTitle(word);
 	}
 
 	@Override
-	public List<Answer_T_Dtos> searchWriter(String word, int sNum, int eNum) {
-		return main_dao.searchWriter(word,sNum,eNum);
+	public List<Answer_T_Dtos> searchWriter(String word) {
+		return main_dao.searchWriter(word);
 	}
 
+	@Override
+	public int pageCount(int count) {
+		return main_dao.pageCount(count);
 	
-
-	@Override
-	public List<Answer_T_Dtos> searchAll01(String word) {
-		return main_dao.searchAll01(word);
-	}
-
-	@Override
-	public List<Answer_T_Dtos> searchTitle01(String word) {
-		return main_dao.searchTitle01(word);
-	}
-
-	@Override
-	public List<Answer_T_Dtos> searchWriter01(String word) {
-		return main_dao.searchWriter01(word);
-	}
-
-	@Override
-	public int pageCountAll(String word) {
-		return main_dao.pageCountAll(word);
-	}
-
-	@Override
-	public int pageCountTitle(String word) {
-		return main_dao.pageCountTitle(word);
-	}
-
-	@Override
-	public int pageCountWriter(String word) {
-		return main_dao.pageCountWriter(word);
 	}
 
 	

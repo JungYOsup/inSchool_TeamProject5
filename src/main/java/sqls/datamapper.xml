@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
+<<<<<<< HEAD
+<mapper namespace="abc.def">
  
+  
+  
+=======
 <mapper namespace="com.hk.ansboard">
 
 	<!-- **resultMap 을 쓰므로서 훨씬 쉽게 할수 있음을 배웠다 -->
@@ -324,5 +328,10 @@
 	</select>
 	
 
+	
+	
+	
+	
 
+>>>>>>> e22c8d0288f8e52f88b5d8fbe65854b3369904ad
 </mapper>
