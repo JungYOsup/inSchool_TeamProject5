@@ -7,11 +7,7 @@
 	<name>inSchool</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
-<<<<<<< HEAD
-<!-- 추적중지 // 무시 -->
-=======
 	<!-- 추적중지 // 무시 -->
->>>>>>> e22c8d0288f8e52f88b5d8fbe65854b3369904ad
 	<properties>
 		<java-version>1.8</java-version>
 		<org.springframework-version>4.3.4.RELEASE</org.springframework-version>
