@@ -9,15 +9,11 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/appServlet/application-context.xml</param-value>
 	</context-param>
-<<<<<<< HEAD
 	
 	<welcome-file-list>
 	<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>	
 	
-=======
-
->>>>>>> e22c8d0288f8e52f88b5d8fbe65854b3369904ad
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -39,11 +35,8 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 
-<<<<<<< HEAD
 	
 	<!-- 		필터 내용을 추가하여 한글이 깨지지 않도록 하기 -->
-=======
->>>>>>> e22c8d0288f8e52f88b5d8fbe65854b3369904ad
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -57,8 +50,5 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-<<<<<<< HEAD
 
-=======
->>>>>>> e22c8d0288f8e52f88b5d8fbe65854b3369904ad
 </web-app>

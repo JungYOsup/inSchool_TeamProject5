@@ -2,9 +2,12 @@ package com.min.inschool.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.min.inschool.dtos.Answer_T_Dtos;
 import com.min.inschool.dtos.Funtion_T_Dtos;
 import com.min.inschool.dtos.REPLY_T_Dtos;
+
 
 public interface IService_Ys {
 	

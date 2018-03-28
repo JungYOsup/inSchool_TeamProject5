@@ -4,16 +4,18 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-<<<<<<< HEAD
-=======
+
 import java.util.HashMap;
->>>>>>> e22c8d0288f8e52f88b5d8fbe65854b3369904ad
+
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,13 +42,16 @@ import com.min.inschool.service.Imain_service;
 @Controller
 public class HomeController {
 
-<<<<<<< HEAD
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	private IService_Ys service_ys;
 
 	@Autowired
 	private Imain_service main_service;
 
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
 
+	
 	@RequestMapping(value = "/main.do")
 	public String main(Locale locale, Model model) {
 
@@ -64,46 +69,119 @@ public class HomeController {
 
 	};
 
-
-	@RequestMapping(value = "/search01.do")
-	public String Search(Locale locale, Model model,String word, String select01) {
-
+	
+	@RequestMapping(value = "/search00.do")
+	public String Search(Locale locale, Model model,String word,String select01,HttpServletRequest request) {
+		
+		request.getSession().setAttribute("word", word);
+		
+		request.getSession().setAttribute("select01",select01);
+		
+		
 		if(select01.equals("searchAllinfo")) {
 
-			List<Answer_T_Dtos> allinfo = main_service.searchAll(word);
+			List<Answer_T_Dtos> searchAll = main_service.searchAll01(word);
 
-			model.addAttribute("lists",allinfo);	
+			
+			model.addAttribute("lists",searchAll);
+			
+			int pageCount = main_service.pageCountAll(word);
+			
+			System.out.println(pageCount);
+			
+			model.addAttribute("pageCount",pageCount);
 
+			request.getSession().setAttribute("pageCount",pageCount);
+
+			
 
 		}else if(select01.equals("titleOnly")) {
 
-			List<Answer_T_Dtos> titleOnly = main_service.searchTitle(word);
+			List<Answer_T_Dtos> titleOnly = main_service.searchTitle01(word);
+			
+			model.addAttribute("lists", titleOnly);
+			
+			int pageCount = main_service.pageCountTitle(word);
+			
+				
+			request.getSession().setAttribute("pageCount",pageCount);
+				
+			}
+			
 
-			model.addAttribute("lists",titleOnly);	
+		else {
+
+			List<Answer_T_Dtos> writer = main_service.searchWriter01(word);
+			
+			model.addAttribute("lists", writer);
+			
+			int pageCount = main_service.pageCountWriter(word);
+
+			
+			request.getSession().setAttribute("pageCount",pageCount);
+			
+			}
+		
+
+		return "search";
+
+	}
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/page.do")
+	public String page(Locale locale, Model model, String sNum, String eNum,HttpServletRequest request) {
+		
+		int sNum01 = Integer.parseInt(sNum);
+		
+		int eNum01 = Integer.parseInt(eNum);
+		
+		String word = (String)request.getSession().getAttribute("word");
+
+		String select01 = (String)request.getSession().getAttribute("select01");
+		
+		
+		if(select01.equals("searchAllinfo")) {
+
+			List<Answer_T_Dtos> searchAll = main_service.searchAll(word,sNum01,eNum01);
+
+			model.addAttribute("lists",searchAll);
+
+			request.getSession().getAttribute("pageCount");
+			
+			
+			
+			
+		}else if(select01.equals("titleOnly")) {
+
+			
+			List<Answer_T_Dtos> titleOnly = main_service.searchTitle(word,sNum01,eNum01);
+
+			model.addAttribute("lists",titleOnly);
+			
+			request.getSession().getAttribute("pageCount");
+			
+		
 
 		}else {
 
-			List<Answer_T_Dtos> writer = main_service.searchWriter(word);
+			List<Answer_T_Dtos> writer = main_service.searchWriter(word,sNum01,eNum01);
 
-			model.addAttribute("lists",writer);	
-
+			model.addAttribute("lists",writer);
+			
+			request.getSession().getAttribute("pageCount");
 		}
-
 
 
 		return "search";
 
 
 	}
-
-
-
-}
-=======
-	@Autowired
-	private IService_Ys service_ys;
-
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -121,7 +199,6 @@ public class HomeController {
 
 		return "home";
 	}
-
 
 	//1.게시판의 모든 정보를 가지고 온다. 
 	@RequestMapping(value = "/V_Board.do")
@@ -207,6 +284,7 @@ public class HomeController {
 
 
 	}
+	
 	//5.좋아요 메서드
 	@ResponseBody
 	@RequestMapping(value ="/likeboard.do")
@@ -494,7 +572,7 @@ public class HomeController {
 		System.out.println(a_boardname);
 		System.out.println(searchword);
 		System.out.println(searchoption);
-		
+
 		List<Answer_T_Dtos> lists=null;	
 				
 		if(searchoption.equals("제목+내용")){
@@ -673,6 +751,5 @@ public class HomeController {
 
 
 
-
 }
->>>>>>> e22c8d0288f8e52f88b5d8fbe65854b3369904ad
+

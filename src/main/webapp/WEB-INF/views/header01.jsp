@@ -100,7 +100,7 @@ a{text-decoration:none;}
 
 <div id="topSearch">
 
-<form action="search01.do" method="post">
+<form action="search00.do" method="post">
 <table>
 <tr>
 <td>

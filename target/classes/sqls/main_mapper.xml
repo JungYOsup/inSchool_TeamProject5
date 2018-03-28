@@ -30,26 +30,71 @@
 	</select>
 
 	<select id="searchAll" resultType="Answer_T_Dtos" parameterType="Map">
-		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1
+		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1,a_regdate
 		FROM (SELECT ROW_NUMBER() OVER(ORDER BY A_REGDATE DESC) AS RANK10 ,A_SEQ,
-		A_TITLE, A_CONTENT1,A_NAME from answer_T WHERE a_title LIKE
+		A_TITLE, A_CONTENT1,A_NAME,a_regdate from answer_T WHERE a_title LIKE
 		'%'||#{word}||'%' OR A_CONTENT1 LIKE '%'||#{word}||'%') RANK10
-		WHERE RANK10 BETWEEN #{snum} AND #{enum}
+		WHERE RANK10 BETWEEN #{sNum} AND #{eNum}
 	</select>
 
 	<select id="searchTitle" resultType="Answer_T_Dtos" parameterType="Map">
-		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1
+		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1,a_regdate
 		FROM (SELECT ROW_NUMBER() OVER(ORDER BY A_REGDATE DESC) AS RANK10 ,A_SEQ,
-		A_TITLE, A_CONTENT1,A_NAME from answer_T WHERE a_title LIKE
-		'%'||#{word}||'%') RANK10 WHERE RANK10 BETWEEN #{snum} AND #{enum}
+		A_TITLE, A_CONTENT1,A_NAME,a_regdate from answer_T WHERE a_title LIKE
+		'%'||#{word}||'%') RANK10 WHERE RANK10 BETWEEN #{sNum} AND #{eNum}
 
 	</select>
 
 	<select id="searchWriter" resultType="Answer_T_Dtos" parameterType="Map">
+		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1,a_regdate
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY A_REGDATE DESC) AS RANK10 ,A_SEQ,
+		A_TITLE, A_CONTENT1,A_NAME,a_regdate from answer_T WHERE a_name LIKE
+		'%'||#{word}||'%') RANK10 WHERE RANK10 BETWEEN #{sNum} AND #{eNum}
+	</select>
+	
+	
+	<select id="searchAll01" resultType="Answer_T_Dtos" parameterType="String">
+			SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1,a_regdate
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY A_REGDATE DESC) AS RANK10 ,A_SEQ,
+		A_TITLE, A_CONTENT1,A_NAME,a_regdate from answer_T WHERE a_title LIKE
+		'%'||#{word}||'%' OR A_CONTENT1 LIKE '%'||#{word}||'%') RANK10
+		WHERE RANK10 BETWEEN 1 AND 10
+	</select>
+	
+		<select id="searchTitle01" resultType="Answer_T_Dtos" parameterType="String">
+		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1,a_regdate
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY A_REGDATE DESC) AS RANK10 ,A_SEQ,
+		A_TITLE, A_CONTENT1,A_NAME,a_regdate from answer_T WHERE a_title LIKE
+		'%'||#{word}||'%') RANK10 WHERE RANK10 BETWEEN 1 AND 10
+
+	</select>
+
+	<select id="searchWriter01" resultType="Answer_T_Dtos" parameterType="String">
 		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1
 		FROM (SELECT ROW_NUMBER() OVER(ORDER BY A_REGDATE DESC) AS RANK10 ,A_SEQ,
-		A_TITLE, A_CONTENT1,A_NAME from answer_T WHERE a_name LIKE
-		'%'||#{word}||'%') RANK10 WHERE RANK10 BETWEEN #{snum} AND #{enum}
+		A_TITLE, A_CONTENT1,A_NAME,a_regdate from answer_T WHERE a_name LIKE
+		'%'||#{word}||'%') RANK10 WHERE RANK10 BETWEEN 1 AND 10
+	</select>
+	
+	<select id="pageCountAll" resultType="int" parameterType="String"> 
+	
+	
+	SELECT CEIL(COUNT(*)/10) AS pageCount FROM answer_T where a_title LIKE
+		'%'||#{word}||'%' or a_content1 like '%'||#{word}||'%'
+	
+	</select>
+	
+	<select id="pageCountTitle" resultType="int" parameterType="String">
+	
+	SELECT CEIL(COUNT(*)/10) AS pageCount FROM answer_T where a_title LIKE
+		'%'||#{word}||'%'
+	
+	</select>
+	
+	<select id="pageCountWriter" resultType="int" parameterType="String">
+	
+		SELECT CEIL(COUNT(*)/10) AS pageCount FROM answer_T where a_name="#{word}"
+	
 	</select>
 
 
