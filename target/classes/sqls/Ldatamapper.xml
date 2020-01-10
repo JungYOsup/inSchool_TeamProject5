@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.min.inschool">
+	<update id="updateinform" parameterType="Join_T_Dtos">
+		UPDATE JOIN_T SET J_PASS=#{j_pass},
+		J_NAME=#{j_name},J_ADDR=#{j_addr},J_DEADDR=#{j_deaddr},
+		J_POST=#{j_post},J_BIRTH=#{j_birth},J_TEL=#{j_tel},
+		J_JOB=#{j_job},J_EMAIL=#{j_email},J_REGDATE=SYSDATE
+		WHERE J_SEQ=#{j_seq}
+		<!-- <if test="{j_post=!null}"> -->
+		<!-- J_TEL=#{j_tel} ==> post 가 null 값이 아니면 값이들어간다 ! 즉 다른 조건일 때 값을 넣게 하고 
+			싶으면 이런식으로 다이나믹 쿼리 쓰면된다. -->
+		<!-- </if> -->
+
+	</update> <!--내정보 수정 -->
+
+	<select id="myinform" resultType="Join_T_Dtos" parameterType="Int">
+		SELECT J_SEQ,J_ID,J_PASS, J_NAME,J_ADDR,J_DEADDR,
+		J_POST,J_BIRTH,J_TEL,J_SEX,J_JOB,J_COMTYPE,J_COMNUMSAL,J_COMBOSS,J_EMAIL,J_UNUM,J_COMNUM,J_GRADE,J_DELFLAG,J_REGDATE
+		FROM JOIN_T WHERE J_SEQ=#{j_seq}
+	</select> <!--내정보 보기 -->
+
+	<select id="loginProcess" resultType="Join_T_Dtos"
+		parameterType="Map">
+		SELECT J_SEQ,J_ID,J_PASS,
+		J_NAME,J_ADDR,J_DEADDR,J_POST,J_BIRTH,J_TEL,J_SEX,J_JOB,J_COMTYPE,J_COMNUMSAL,J_COMBOSS,J_EMAIL,J_UNUM,J_COMNUM,J_GRADE,J_DELFLAG,J_REGDATE
+		FROM JOIN_T
+		WHERE J_ID=#{id} AND J_PASS=#{password} AND J_DELFLAG='N'
+	</select> <!-- 로그인 -->
+
+	<!-- <delete id="deleteID" parameterType="Int"> -->
+	<!-- DELETE FROM JOIN_T WHERE J_SEQ=#{j_seq} -->
+	<!-- </delete> 회원 탈퇴 -->
+
+	<update id="deleteID" parameterType="Int">
+		UPDATE JOIN_T SET J_DELFLAG='Y' WHERE J_SEQ=#{j_seq}
+	</update>
+
+	<insert id="Kregister" parameterType="Map">
+		INSERT INTO JOIN_T
+		( J_SEQ,J_ID,J_PASS, J_NAME,J_ADDR,J_DEADDR,J_POST,J_BIRTH,J_TEL,J_SEX,J_JOB,J_EMAIL,J_UNUM,j_COMNUM,J_GRADE,J_DELFLAG,J_REGDATE)
+		VALUES(JOIN_T_SEQ.NEXTVAL,#{j_id},'0000',#{j_name},'한경','닷컴','0000',SYSDATE,'0000','0','hankyung','00@00','K'||JOIN_T_SEQ.NEXTVAL,'0','일반회원','N',SYSDATE)
+	</insert>
+
+	<select id="Kidcheck" resultType="Join_T_Dtos" parameterType="Map">
+		SELECT J_SEQ, J_ID, J_PASS, J_NAME, J_ADDR, J_DEADDR, J_POST, J_BIRTH,
+		J_TEL, J_SEX, J_JOB, J_COMTYPE,
+		J_COMNUMSAL, J_COMBOSS, J_EMAIL, J_UNUM, J_COMNUM, J_GRADE, J_DELFLAG, J_REGDATE
+		FROM TEAMWORK.JOIN_T
+		WHERE J_ID=#{j_id} AND J_NAME=#{j_name}
+	</select>
+
+
+
+</mapper>

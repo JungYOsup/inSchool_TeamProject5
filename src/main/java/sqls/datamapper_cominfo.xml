@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.min.inschool">
+	<!-- <resultMap type="com.min.inschool.dtos.cominfo_Dto" id="cominfo_DtosMap"> -->
+	<!-- <result property="co_seq" column="CO_SEQ"/> -->
+	<!-- <result property="co_name" column="CO_NAME"/> -->
+	<!-- <result property="co_title" column="CO_TITLE"/> -->
+	<!-- <result property="co_location" column="CO_LOCATION"/> -->
+	<!-- <result property="co_jobtype" column="CO_JOBTYPE"/> -->
+	<!-- <result property="co_industry" column="CO_INDUSTRY"/> -->
+	<!-- <result property="co_jobcategory" column="CO_JOBCATEGORY"/> -->
+	<!-- <result property="co_exlevel" column="CO_EXLEVEL"/> -->
+	<!-- <result property="co_relevel" column="CO_RELEVEL"/> -->
+	<!-- <result property="co_salary" column="CO_SALARY"/> -->
+	<!-- <result property="co_podate" column="CO_PODATE"/> -->
+	<!-- <result property="co_exdate" column="CO_EXDATE"/> -->
+	<!-- <result property="co_regdate" column="CO_REGDATE"/> -->
+	<!-- <result property="co_id" column="CO_ID"/> -->
+	<!-- <result property="co_url" column="CO_URL"/> -->
+	<!-- </resultMap> -->
+
+	<insert id="cominfo" parameterType="cominfo_Dto">
+		INSERT INTO COMINFO
+		(CO_SEQ,CO_NAME,CO_TITLE,CO_LOCATION,CO_JOBTYPE,CO_INDUSTRY,CO_JOBCATEGORY,
+		CO_EXLEVEL,CO_RELEVEL,CO_SALARY,CO_PODATE,CO_EXDATE,CO_ID,CO_URL,CO_REGDATE)
+		VALUES(COMINFO_SEQ.NEXTVAL,#{co_name},#{co_title},#{co_location},#{co_jobtype},
+		#{co_industry},#{co_jobcategory},#{co_exlevel},#{co_relevel},#{co_salary},
+		#{co_podate},#{co_exdate},#{co_id},#{co_url},SYSDATE)
+	</insert>
+
+	<!-- 30.게시판의 데이터를 10개 가져오는 쿼리 -->
+	<select id="cominfo2" parameterType="cominfo_Dto" resultType="cominfo_Dto">
+
+		SELECT
+		RANK,CO_SEQ,CO_NAME,CO_TITLE,CO_LOCATION,CO_JOBTYPE,CO_INDUSTRY,CO_JOBCATEGORY,CO_EXLEVEL,CO_RELEVEL,CO_SALARY,CO_PODATE,CO_EXDATE,CO_ID,CO_URL,CO_REGDATE
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY CO_REGDATE ASC)
+		RANK,CO_SEQ,CO_NAME,CO_TITLE,CO_LOCATION,CO_JOBTYPE,CO_INDUSTRY,CO_JOBCATEGORY,
+		CO_EXLEVEL,CO_RELEVEL,CO_SALARY,CO_PODATE,CO_EXDATE,CO_ID,CO_URL,CO_REGDATE
+		FROM COMINFO) WHERE RANK BETWEEN 1 AND 10
+
+	</select>
+
+	<!--31.게시판의 페이지를 정하는 쿼리 -->
+	<select id="cominfopage" resultType="int">
+
+		SELECT CEIL(COUNT(*)/10) as COUNT FROM COMINFO
+
+	</select>
+
+	<!--32.게시판의 페이지에 따른 값을 가져오는 쿼리 -->
+	<select id="cominfo3" parameterType="Map" resultType="cominfo_Dto">
+
+		SELECT
+		RANK,CO_SEQ,CO_NAME,CO_TITLE,CO_LOCATION,CO_JOBTYPE,CO_INDUSTRY,CO_JOBCATEGORY,CO_EXLEVEL,CO_RELEVEL,CO_SALARY,CO_PODATE,CO_EXDATE,CO_ID,CO_URL,CO_REGDATE
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY CO_REGDATE ASC)
+		RANK,CO_SEQ,CO_NAME,CO_TITLE,CO_LOCATION,CO_JOBTYPE,CO_INDUSTRY,CO_JOBCATEGORY,
+		CO_EXLEVEL,CO_RELEVEL,CO_SALARY,CO_PODATE,CO_EXDATE,CO_ID,CO_URL,CO_REGDATE
+		FROM COMINFO) WHERE RANK BETWEEN #{s_num} AND #{e_num}
+
+	</select>
+
+	<!-- -->
+	<select id="recommendBoardform" parameterType="cominfo_Dto"
+		resultType="cominfo_Dto">
+
+		SELECT
+		RANK,CO_SEQ,CO_NAME,CO_TITLE,CO_LOCATION,CO_JOBTYPE,CO_INDUSTRY,CO_JOBCATEGORY,CO_EXLEVEL,CO_RELEVEL,CO_SALARY,CO_PODATE,CO_EXDATE,CO_ID,CO_URL,CO_REGDATE
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY CO_REGDATE ASC)
+		RANK,CO_SEQ,CO_NAME,CO_TITLE,CO_LOCATION,CO_JOBTYPE,CO_INDUSTRY,CO_JOBCATEGORY,
+		CO_EXLEVEL,CO_RELEVEL,CO_SALARY,CO_PODATE,CO_EXDATE,CO_ID,CO_URL,CO_REGDATE
+		FROM COMINFO) WHERE CO_NAME=#{co_name}
+
+
+	</select>
+
+	<select id="getComInfo" resultType="cominfo_Dto">
+
+		SELECT CO_NAME,CO_PODATE,CO_EXDATE,CO_URL FROM COMINFO
+
+	</select>
+
+
+</mapper>

@@ -187,7 +187,7 @@
 				<dd>
 					<form id="daumOpenEditorForm" enctype="multipart/form-data"
 						method="post" action="">
-						<!-- 파일첨부 -->
+						<!-- 사진첨부 -->
 						<div class="file">
 							<input disabled="disabled" class="file-text" type="text"></input> <!--여기 타입을 text로 바꿔주니까 됨  -->
 							<label class="file-btn" for="uploadInputBox">사진첨부</label> 

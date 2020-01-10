@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.min.inschool.daos.IDao_Ys;
+import com.min.inschool.daos.YsDao;
 import com.min.inschool.dtos.Answer_T_Dtos;
 import com.min.inschool.dtos.Funtion_T_Dtos;
+import com.min.inschool.dtos.Join_T_Dtos;
 import com.min.inschool.dtos.REPLY_T_Dtos;
 
 @Service
@@ -172,13 +174,62 @@ public class Service_Ys implements IService_Ys {
 	@Override
 	public List<Answer_T_Dtos> getAllsearch(String searchword, String a_boardname, String s_num, String e_num) {
 		// TODO Auto-generated method stub
-		return null;
+		return YSDao.getAllsearch(searchword, a_boardname, s_num, e_num);
 	}
 
 	@Override
 	public List<Answer_T_Dtos> gettitlesearch(String searchword, String a_boardname, String s_num, String e_num) {
 		// TODO Auto-generated method stub
-		return null;
+		return YSDao.gettitlesearch(searchword, a_boardname, s_num, e_num);
+	}
+
+	@Override
+	public List<Answer_T_Dtos> getBoardnameAllList(Answer_T_Dtos dto) {
+		return YSDao.getBoardnameAllList(dto);
+	}
+
+	@Override
+	public List<Answer_T_Dtos> getBoardnameAllList(Answer_T_Dtos dto, String s_num, String e_num) {
+		return YSDao.getBoardnameAllList(dto, s_num, e_num);
+	}
+
+	@Override
+	public int Boardname_boardcount(Answer_T_Dtos dto) {
+		
+		return YSDao.Boardname_boardcount(dto);
+	}
+
+	@Override
+	public List<Answer_T_Dtos> getsaveorlike(Answer_T_Dtos dto) {
+		
+		return YSDao.getsaveorlike(dto);
+	}
+
+	@Override
+	public boolean insertrecommend(Answer_T_Dtos dto) {
+		return YSDao.insertrecommend(dto);
+	}
+
+	@Override
+	public Funtion_T_Dtos selectrecommend(Answer_T_Dtos dto) {
+		// TODO Auto-generated method stub
+		return YSDao.selectrecommend(dto);
+	}
+
+	@Override
+	public boolean deleterecommend(Answer_T_Dtos dto) {
+		// TODO Auto-generated method stub
+		return YSDao.deleterecommend(dto);
+	}
+
+	@Override
+	public List<Join_T_Dtos> getAllrecommendList(Answer_T_Dtos dto) {
+		return YSDao.getAllrecommendList(dto);
+	}
+
+	@Override
+	public int getrecommendcount(Join_T_Dtos dto) {
+		return YSDao.getrecommendcount(dto);
 	}
 	
 

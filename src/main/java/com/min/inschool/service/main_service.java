@@ -9,7 +9,6 @@ import com.min.inschool.daos.Imain_dao;
 import com.min.inschool.dtos.Answer_T_Dtos;
 
 @Service
-
 public class main_service implements Imain_service{
 
 @Autowired

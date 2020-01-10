@@ -17,7 +17,7 @@ public class Join_T_Dtos implements Serializable {
 	private String j_addr;
 	private String j_deaddr;
 	private String j_post;
-	private Date j_birth;
+	private String j_birth;
 	private String j_tel;
 	private String j_sex;
 	private String j_job;
@@ -30,19 +30,18 @@ public class Join_T_Dtos implements Serializable {
 	private String j_grade;
 	private String j_delflag;
 	private Date j_regdate;
-	
-	
+		
 	
 	public Join_T_Dtos() {
-
+		
+		
 	}
 	
 	
-	
 	public Join_T_Dtos(int j_seq, String j_id, String j_pass, String j_name, String j_addr, String j_deaddr,
-			String j_post, Date j_birth, String j_tel, String j_sex, String j_job, String j_comtype, String j_comnumsal,
-			String j_comboss, String j_email, String j_unum, String j_comnum, String j_grade, String j_delflag,
-			Date j_regdate) {
+			String j_post, String j_birth, String j_tel, String j_sex, String j_job, String j_comtype,
+			String j_comnumsal, String j_comboss, String j_email, String j_unum, String j_comnum, String j_grade,
+			String j_delflag, Date j_regdate) {
 		super();
 		this.j_seq = j_seq;
 		this.j_id = j_id;
@@ -65,6 +64,8 @@ public class Join_T_Dtos implements Serializable {
 		this.j_delflag = j_delflag;
 		this.j_regdate = j_regdate;
 	}
+	
+	
 	public int getJ_seq() {
 		return j_seq;
 	}
@@ -107,10 +108,10 @@ public class Join_T_Dtos implements Serializable {
 	public void setJ_post(String j_post) {
 		this.j_post = j_post;
 	}
-	public Date getJ_birth() {
+	public String getJ_birth() {
 		return j_birth;
 	}
-	public void setJ_birth(Date j_birth) {
+	public void setJ_birth(String j_birth) {
 		this.j_birth = j_birth;
 	}
 	public String getJ_tel() {
@@ -188,13 +189,14 @@ public class Join_T_Dtos implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "InSchoolDtos_Join_T [j_seq=" + j_seq + ", j_id=" + j_id + ", j_pass=" + j_pass + ", j_name=" + j_name
+		return "Join_T_Dtos [j_seq=" + j_seq + ", j_id=" + j_id + ", j_pass=" + j_pass + ", j_name=" + j_name
 				+ ", j_addr=" + j_addr + ", j_deaddr=" + j_deaddr + ", j_post=" + j_post + ", j_birth=" + j_birth
 				+ ", j_tel=" + j_tel + ", j_sex=" + j_sex + ", j_job=" + j_job + ", j_comtype=" + j_comtype
 				+ ", j_comnumsal=" + j_comnumsal + ", j_comboss=" + j_comboss + ", j_email=" + j_email + ", j_unum="
 				+ j_unum + ", j_comnum=" + j_comnum + ", j_grade=" + j_grade + ", j_delflag=" + j_delflag
 				+ ", j_regdate=" + j_regdate + "]";
 	}
+	
 	
 	
 	

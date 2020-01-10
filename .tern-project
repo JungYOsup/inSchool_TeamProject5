@@ -1,44 +1,21 @@
 {
-  "ecmaVersion": 5,
   "plugins": {
-    "guess-types": {
-      
-    },
-    "outline": {
-      
-    },
-<<<<<<< HEAD
-    "chrome-extension": {
-      
-    },
-    "chrome-apps": {
-      
-    },
-    "gas": {
-      
-    },
-    "ckeditor4.4.x": {
-=======
     "chrome-apps": {
       
     },
     "chrome-extension": {
->>>>>>> e22c8d0288f8e52f88b5d8fbe65854b3369904ad
       
     },
     "browser-extension": {
       
     },
-<<<<<<< HEAD
-    "gcharts": {
-=======
     "jquery-extension": {
->>>>>>> e22c8d0288f8e52f88b5d8fbe65854b3369904ad
       
     }
   },
   "libs": [
     "browser",
     "jquery"
-  ]
+  ],
+  "ecmaVersion": 6
 }

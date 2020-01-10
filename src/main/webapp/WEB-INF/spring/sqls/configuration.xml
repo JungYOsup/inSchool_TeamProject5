@@ -5,18 +5,23 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias type="com.min.inschool.dtos.Join_T_Dtos" alias="Join_T_Dtos"/>
-		<typeAlias type="com.min.inschool.dtos.Answer_T_Dtos" alias="Answer_T_Dtos"/>
-		<typeAlias type="com.min.inschool.dtos.Funtion_T_Dtos" alias="Funtion_T_Dtos"/>
-		<typeAlias type="com.min.inschool.dtos.REPLY_T_Dtos" alias="REPLY_T_Dtos"/>
+		<typeAlias type="com.min.inschool.dtos.Join_T_Dtos" alias="Join_T_Dtos" />
+		<typeAlias type="com.min.inschool.dtos.Answer_T_Dtos" alias="Answer_T_Dtos" />
+		<typeAlias type="com.min.inschool.dtos.Funtion_T_Dtos" alias="Funtion_T_Dtos" />
+		<typeAlias type="com.min.inschool.dtos.REPLY_T_Dtos" alias="REPLY_T_Dtos" />
+		<typeAlias type="com.min.inschool.dtos.cominfo_Dto" alias="cominfo_Dto" />
 	</typeAliases>
-  
-  <mappers>
-  	
-	  <mapper resource="/sqls/datamapper.xml"/>
-	  <mapper resource="/sqls/main_mapper.xml"/>
-  	
-  </mappers>
-  
-  
+
+	<mappers>
+
+		<mapper resource="/sqls/datamapper.xml" />
+		<mapper resource="/sqls/main_mapper.xml" />
+		<mapper resource="/sqls/Ldatamapper.xml" />
+		<mapper resource="/sqls/datamapper_Regist.xml" />
+		<mapper resource="/sqls/datamapper_cominfo.xml" />
+
+
+	</mappers>
+
+
 </configuration>

@@ -22,7 +22,7 @@ public class Util {
 			
 		}
 		//이미지는 새롭게 추가
-		this.arrowNbsp = (depthint>0?nbsp+"<img src='img/arrow.png' alt=''/>":"");
+		this.arrowNbsp = (depthint>0?nbsp+"<img src='images/boardarrow.jpg' alt=''/>":"");
 	}
 
 	public Util() {

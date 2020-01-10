@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
@@ -9,6 +9,7 @@
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <link rel=stylesheet type=text/css
 	href="${pageContext.request.contextPath}/resources/daumOpenEditor/css/editor.css" />
 <script type=text/javascript charset=utf-8
@@ -26,10 +27,10 @@
 		지원분야 
 		<select name="a_option">
 		<option value="">지원분야</option>
-		<option value="[정요섭]">[정요섭]</option>
-		<option value="[전병주]">[전병주]</option>
-		<option value="[이영상]">[이영상]</option>
-		<option value="[김영욱]">[김영욱]</option>
+		<option value="[IT/인터넷]">[IT/인터넷]</option>
+		<option value="[디자인]">[디자인]</option>
+		<option value="[무역/유통]">[무역/유통]</option>
+		<option value="[경영/사무]">[경영/사무]</option>
 		</select>
 	</div>
 	

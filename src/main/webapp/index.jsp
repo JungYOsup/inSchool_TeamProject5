@@ -8,12 +8,14 @@
 </head>
 <body>
 
-<<<<<<< HEAD
-<jsp:forward page="/main.do"></jsp:forward>
-=======
 <a href="V_Board.do">안녕하세요 정요섭입니다</a>
->>>>>>> e22c8d0288f8e52f88b5d8fbe65854b3369904ad
-
+<a href="main.do">메인화면으로 이동</a>
+<a href="header.do">해더로 이동</a>
+<a href="Login.do">로그인창으로 이동</a>
+<a href="Boardform.do">게시판틀로 이동</a>
+<a href="Calendarpractice.do">달력으로 이동</a>
+<a href="comjob.do">DB로 고고</a>
+<a href="jobget.do">DB 넣기</a>
 
 </body>
 </html>
