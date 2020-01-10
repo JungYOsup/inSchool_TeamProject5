@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.min.inschool.dtos.Answer_T_Dtos;
 import com.min.inschool.dtos.Funtion_T_Dtos;
+import com.min.inschool.dtos.Join_T_Dtos;
 import com.min.inschool.dtos.REPLY_T_Dtos;
 
 
@@ -13,8 +14,7 @@ public interface IService_Ys {
 	
 		//1. 모든 데이터를 가져온다. (SELECT)
 		public List<Answer_T_Dtos> getAllList();
-		
-		
+				
 		//2. 특정페이지의 데이터를 가져옴
 		public List<Answer_T_Dtos> getAllList(String s_num,String e_num);
 		
@@ -34,7 +34,6 @@ public interface IService_Ys {
 		public boolean DoublecommentBoardInsert(REPLY_T_Dtos dto); 
 		
 		//7. 댓글을 가져오는 메서드 
-		
 		public List<REPLY_T_Dtos> selectAllcomment(REPLY_T_Dtos dto);
 		
 		//8. 게시판을 수정하는 메서드(상세보기, 내것을 클릭했을때) (UPDATE)
@@ -92,5 +91,32 @@ public interface IService_Ys {
 		//28. 검색한 특정페이지의 데이터를 가져옴
 		public List<Answer_T_Dtos> gettitlesearch(String searchword,String a_boardname,String s_num,String e_num);
 		
+		//29. 특정게시판의 데이터를 10개 가져온다
+		public List<Answer_T_Dtos> getBoardnameAllList(Answer_T_Dtos dto);
+		
+		
+		//30. 특정게시판의 페이지의 해당되는 데이터를 가져온다.
+		public List<Answer_T_Dtos> getBoardnameAllList(Answer_T_Dtos dto,String s_num,String e_num);
+		
+		
+		//31.특정게시판의 페이지 수를 가져온다
+		public int Boardname_boardcount(Answer_T_Dtos dto);
+		
+		//32.내가 선택한 즐겨찾기를 가져오는 메서드
+		public List<Answer_T_Dtos> getsaveorlike(Answer_T_Dtos dto);
+		
+		//33.기업이 게시글을 추천하는메서드
+		public boolean insertrecommend(Answer_T_Dtos dto);
 
+		//34. 기업이 게시글을 추천하는것을 가져오는 메서드(SELECT)
+		public Funtion_T_Dtos selectrecommend(Answer_T_Dtos dto);
+
+		//35. 기업이 게시글을 추천한것을 삭제하는 메서드(DELETE)
+		public boolean deleterecommend(Answer_T_Dtos dto);
+		
+		//35. 추천받은 모든 기업을 가져온다. (SELECT)
+		public List<Join_T_Dtos> getAllrecommendList(Answer_T_Dtos dto);
+		
+		//36. 추천받은 기업의 수를 가져온다.		
+		public int getrecommendcount(Join_T_Dtos dto);
 }

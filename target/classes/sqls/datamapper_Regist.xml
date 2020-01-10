@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.min.inschool">
+<resultMap type="com.min.inschool.dtos.Join_T_Dtos" id="Join_T_DtosMap">
+	<result property="j_seq" column="J_SEQ"/>
+	<result property="j_id" column="J_ID"/>
+	<result property="j_pass" column="J_PASS"/>
+	<result property="j_name" column="J_NAME"/>
+	<result property="j_addr" column="J_ADDR"/>
+	<result property="j_deaddr" column="J_DEADDR"/>
+	<result property="j_post" column="J_POST"/>
+	<result property="j_birth" column="J_BIRTH"/>
+	<result property="j_tel" column="J_TEL"/>
+	<result property="j_sex" column="J_SEX"/>
+	<result property="j_job" column="J_JOB"/>
+	<result property="j_comtype" column="J_COMTYPE"/>
+	<result property="j_comnumsal" column="J_COMNUMSAL"/>
+	<result property="j_comboss" column="J_COMBOSS"/>
+	<result property="j_email" column="J_EMAIL"/>
+	<result property="j_unum" column="J_UNUM"/>
+	<result property="j_comnum" column="J_COMNUM"/>
+	<result property="j_grade" column="J_GRADE"/>
+	<result property="j_delflag" column="J_DELFLAG"/>
+	<result property="j_regdate" column="J_REGDATE"/>
+</resultMap>
+
+ 	<select id="chkDupId" parameterType="Join_T_Dtos" resultType="Integer">
+		SELECT COUNT(*) AS J_ID FROM JOIN_T WHERE J_ID=#{j_id}
+ 	</select>
+ 	<insert id="Uregist" parameterType="Join_T_Dtos">
+		INSERT INTO JOIN_T
+			(J_SEQ,J_ID,J_PASS,J_NAME,J_ADDR,J_DEADDR,J_POST,J_BIRTH,J_TEL,J_SEX,J_JOB,
+			 J_EMAIL,J_UNUM,J_COMNUM,J_GRADE,J_DELFLAG,J_REGDATE)
+			VALUES(JOIN_T_SEQ.NEXTVAL,#{j_id},#{j_pass},#{j_name},#{j_addr},#{j_deaddr},
+			#{j_post},#{j_birth},#{j_tel},#{j_sex},#{j_job},#{j_email},
+			'U'||ANSWER_T_SEQ.NEXTVAL,'0','일반회원','N',SYSDATE)
+	</insert>
+	<insert id="Cregist" parameterType="Join_T_Dtos">
+		INSERT INTO JOIN_T
+			(J_SEQ,J_ID,J_PASS,J_NAME,J_ADDR,J_DEADDR,J_POST,J_TEL,J_COMTYPE,J_COMNUMSAL,
+			J_COMBOSS,J_EMAIL,J_UNUM,J_COMNUM,J_GRADE,J_DELFLAG,J_REGDATE)
+			VALUES(JOIN_T_SEQ.NEXTVAL,#{j_id},#{j_pass},#{j_name},#{j_addr},#{j_deaddr},#{j_post},
+			#{j_tel},#{j_comtype},#{j_comnumsal},#{j_comboss},#{j_email},'0',
+			'C'||ANSWER_T_SEQ.NEXTVAL,'기업회원','N',SYSDATE)
+	</insert>
+</mapper>

@@ -5,27 +5,27 @@
 
 	<select id="mainlistResume" resultType="Answer_T_Dtos">
 
-<![CDATA[SELECT a_title FROM ANSWER_T WHERE a_boardname='resume' AND rownum<11 ORDER BY A_REGDATE DESC]]>
+<![CDATA[SELECT a_title,a_seq FROM ANSWER_T WHERE a_boardname='UV' AND rownum<11 ORDER BY A_REGDATE DESC]]>
 
 	</select>
 
 	<select id="mainlistInter" resultType="Answer_T_Dtos">
 
-<![CDATA[SELECT a_title FROM ANSWER_T WHERE a_boardname='inter' AND rownum<11 ORDER BY A_REGDATE DESC]]>
+<![CDATA[SELECT a_title,a_seq FROM ANSWER_T WHERE a_boardname='CV' AND rownum<11 ORDER BY A_REGDATE DESC]]>
 
 	</select>
 
 
 	<select id="mainlistFree" resultType="Answer_T_Dtos">
 
-<![CDATA[SELECT a_title FROM ANSWER_T WHERE a_boardname='free' AND rownum<11 ORDER BY A_REGDATE DESC]]>
+<![CDATA[SELECT a_title,a_seq FROM ANSWER_T WHERE a_boardname='FREE' AND rownum<11 ORDER BY A_REGDATE DESC]]>
 
 	</select>
 
 
 	<select id="mainlistQA" resultType="Answer_T_Dtos">
 
-<![CDATA[SELECT a_title FROM ANSWER_T WHERE a_boardname='qa' AND rownum<11 ORDER BY A_REGDATE DESC]]>
+<![CDATA[SELECT a_title,a_seq FROM ANSWER_T WHERE a_boardname='QA' AND rownum<11 ORDER BY A_REGDATE DESC]]>
 
 	</select>
 
@@ -70,7 +70,7 @@
 	</select>
 
 	<select id="searchWriter01" resultType="Answer_T_Dtos" parameterType="String">
-		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1
+		SELECT RANK10,A_SEQ,A_NAME,A_TITLE,A_CONTENT1,a_regdate
 		FROM (SELECT ROW_NUMBER() OVER(ORDER BY A_REGDATE DESC) AS RANK10 ,A_SEQ,
 		A_TITLE, A_CONTENT1,A_NAME,a_regdate from answer_T WHERE a_name LIKE
 		'%'||#{word}||'%') RANK10 WHERE RANK10 BETWEEN 1 AND 10

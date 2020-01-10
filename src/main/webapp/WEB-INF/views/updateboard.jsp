@@ -3,6 +3,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%request.setCharacterEncoding("utf-8"); %> 
+<%response.setContentType("text/html; charset=UTF-8"); %>
 
 
 <%
@@ -47,7 +49,7 @@
 	</div>
 	
 	
-	<textarea class="textcontent" rows="20" cols="20" name="a_content1"></textarea> <!--css처리 해줘서 안보이게끔 해주고  -->
+	<textarea class="textcontent" rows="20" cols="20" name="a_content1" style="display: none"></textarea> <!--css처리 해줘서 안보이게끔 해주고  -->
 	
 
 	<!-- 에디터 컨테이너 시작 -->
@@ -557,12 +559,12 @@
 		<button type="button" onclick="history.back(-1)">취소</button>
 	</div>
 	
-	<input type="text" name="v_oriname" id="v_oriname" value="${dtos.v_oriname}">
-	<input type="text" name="v_type" id="v_type" value="${dtos.v_type}"><!--수정된 이름  -->
-	<input type="text" name="v_filesize" id="v_filesize" value="${dtos.v_filesize}">
-	<input type="text" name="img_name" id="img_name" value="${dtos.img_name}">
-	<input type="text" name="img_size" id="img_size" value="${dtos.img_size}">
-	<input type="text" name="a_seq" value="${dtos.a_seq}">
+	<input type="text" name="v_oriname" id="v_oriname" value="${dtos.v_oriname}" style="display: none;">
+	<input type="text" name="v_type" id="v_type" value="${dtos.v_type}" style="display: none"><!--수정된 이름  -->
+	<input type="text" name="v_filesize" id="v_filesize" value="${dtos.v_filesize}" style="display: none;">
+	<input type="text" name="img_name" id="img_name" value="${dtos.img_name}" style="display: none;">
+	<input type="text" name="img_size" id="img_size" value="${dtos.img_size}" style="display: none;">
+	<input type="text" name="a_seq" value="${dtos.a_seq}" style="display: none;">
 	
 </form>
 	
